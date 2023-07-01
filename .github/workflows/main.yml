@@ -5,7 +5,7 @@ on:
     branches: [ master ]
 
 jobs:
-  build_backend:
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -54,28 +54,3 @@ jobs:
         run: echo 'deployment succeed' # replace this with your specific deployment command
 
     # Define steps to build and test your backend
-
-  build_frontend:
-    needs: build_backend
-    runs-on: ubuntu-latest
-    # Define steps to build and test your frontend
-
-  build_mobile:
-    needs: build_frontend
-    runs-on: ubuntu-latest
-    # Define steps to build and test your mobile app
-
-  deploy_backend:
-    needs: build_mobile
-    runs-on: ubuntu-latest
-    # Define steps to deploy your backend
-
-  deploy_frontend:
-    needs: deploy_backend
-    runs-on: ubuntu-latest
-    # Define steps to deploy your frontend
-
-  deploy_mobile:
-    needs: deploy_frontend
-    runs-on: ubuntu-latest
-    # Define steps to deploy your mobile app
