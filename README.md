@@ -8,6 +8,12 @@ This back end serves as the API for the blockchain project.
 
 ### Details
 
+```shell
+mvn package
+```
+
+
+
 ### Summary
 
 ### Related
