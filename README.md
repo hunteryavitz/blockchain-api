@@ -1,5 +1,5 @@
 # Blockchain API
-**Last Updated: 7/8/23**
+*Last Updated: 7/8/23*
 
 This is the API and backend code for the blockchain project.
 
@@ -7,14 +7,25 @@ This is the API and backend code for the blockchain project.
 This back end serves as the API for the blockchain project.
 
 ### Details
+This API will service requests from the client-side of this project.
 
+**Build and Compile**
 ```shell
 mvn package
 ```
 
+**Run Unit Tests**
+```shell
+mvn test
+```
 
+**Generate Javadocs**
+```shell
+mvn javadoc:javadoc
+```
 
 ### Summary
+The aim of this API is to provide service to the client-side.
 
 ### Related
 This API is a component of the [Blockchain Project](https://github.com/hunteryavitz/blockchain-main).  It works as the back-end code to provide services to the following clients:
@@ -23,6 +34,6 @@ This API is a component of the [Blockchain Project](https://github.com/hunteryav
 - [Blockchain Mobile Client](https://github.com/hunteryavitz/blockchain-client-mobile)
 
 ### Extra
-Feel free to download / modify / use in any way.
+Feel free to download, modify, or use in any way.
 
 Developer: [Hunter Yavitz](mailto:h.yavitz@gmail.com)
