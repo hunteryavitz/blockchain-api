@@ -7,3 +7,4 @@ Unreleased
 
 - [Add Deployment Pipeline](#1)
 - [Stub Out Jobs for Deployment Pipeline](#3)
+- [Add Unit Tests to Deployment](#5)
