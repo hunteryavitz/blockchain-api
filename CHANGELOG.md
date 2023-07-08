@@ -1,7 +1,9 @@
 # CHANGELOG
+Unreleased
 
----
+**7/8/23**
 
-v0.0.1 - 7/3/2023
+*v0.0.1*
 
-- Initial Push
+- [Add Deployment Pipeline](#1)
+- [Stub Out Jobs for Deployment Pipeline](#3)
