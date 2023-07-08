@@ -1,5 +1,5 @@
 # Blockchain API
-*Last Updated: 7/8/23*
+**Last Updated:** 7/8/23
 
 This is the API and backend code for the blockchain project.
 
