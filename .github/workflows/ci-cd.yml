@@ -70,3 +70,24 @@ jobs:
           force_orphan: true
           enable_jekyll: true
           cname: javadoc.example.com
+
+  deploy:
+    needs: javadoc
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download build artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: build-artifacts
+          path: target
+
+      - name: Deploy to server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: root
+          key: ${{ secrets.SSH_KEY }}
+          port: 8080
+          script: |
+            scp target/*.jar root@${{ secrets.SSH_HOST }}:/root/
+            ssh root@${{ secrets.SSH_HOST }} "nohup java -jar /root/blockchain-api-0.0.1-SNAPSHOT.jar > /root/api.log 2>&1 &"
