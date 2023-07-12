@@ -90,3 +90,4 @@ jobs:
           port: 8080
           script: |
             scp target/*.jar root@${{ secrets.SSH_HOST }}:/root
+            ssh root@${{ secrets.SERVER_IP }} "nohup java -jar /root/api.jar > /root/api.log 2>&1 &"
