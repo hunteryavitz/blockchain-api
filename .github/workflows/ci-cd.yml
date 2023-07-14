@@ -80,6 +80,10 @@ jobs:
         with:
           name: build-artifacts
           path: target
+      - name: Add server to known hosts
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_HOST_PUBLIC_KEY }}" >> ~/.ssh/known_hosts
 
       - name: Deploy to server
         uses: appleboy/ssh-action@master
@@ -91,4 +95,3 @@ jobs:
           script: |
             scp target/*.jar ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/${{ secrets.SSH_USER }}
             ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "nohup java -jar /home/${{ secrets.SSH_USER }}/api.jar > /home/${{ secrets.SSH_USER }}/api.log 2>&1 &"
-          known_hosts: ${{ secrets.SSH_HOST_PUBLIC_KEY }}
