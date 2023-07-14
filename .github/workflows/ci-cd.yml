@@ -91,3 +91,4 @@ jobs:
           script: |
             scp target/*.jar ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/${{ secrets.SSH_USER }}
             ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "nohup java -jar /home/${{ secrets.SSH_USER }}/api.jar > /home/${{ secrets.SSH_USER }}/api.log 2>&1 &"
+          known_hosts: ${{ secrets.SSH_HOST_PUBLIC_KEY }}
