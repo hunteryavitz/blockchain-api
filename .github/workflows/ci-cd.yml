@@ -20,3 +20,4 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
           script: echo "Connected to the server"
+
