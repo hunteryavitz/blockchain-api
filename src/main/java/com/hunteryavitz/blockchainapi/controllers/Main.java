@@ -29,4 +29,9 @@ public class Main {
     public ResponseEntity<Boolean> isAlive() {
         return ResponseEntity.ok(true);
     }
+
+    @GetMapping("/version")
+    public ResponseEntity<String> getVersion() {
+        return ResponseEntity.ok("0.0.1");
+    }
 }
