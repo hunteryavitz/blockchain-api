@@ -93,11 +93,12 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
           script: |
+            mkdir -p ~/.ssh
+            echo "${{ secrets.SSH_HOST_PUBLIC_KEY }}" >> ~/.ssh/known_hosts
             echo "listing directory..."
             ls /home/${{ secrets.SSH_USER }}
             echo "listing directory done"
             echo "Next steps: "
             echo "Deploying to server..."
-            cat ~/.ssh/known_hosts
             scp target/*.jar ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/${{ secrets.SSH_USER }}
             echo "Deployed to server"
