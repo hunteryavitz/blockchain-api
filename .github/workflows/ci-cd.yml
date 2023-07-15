@@ -96,9 +96,11 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
           script: |
-            echo "Listing server home directory..."
-            ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "ls -al /home/${{ secrets.SSH_USER }}"
-            echo "Deploying to server..."
-            rsync -avz -e ssh target/*.jar ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/${{ secrets.SSH_USER }}
-            echo "Starting application..."
-            ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "nohup java -jar /home/${{ secrets.SSH_USER }}/api.jar > /home/${{ secrets.SSH_USER }}/api.log 2>&1 &"
+            echo "Current known hosts:"
+            cat ~/.ssh/known_hosts
+            echo "Adding host to known hosts..."
+            ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+            echo "Updated known hosts:"
+            cat ~/.ssh/known_hosts
+            echo "Testing SSH connection..."
+            ssh -o StrictHostKeyChecking=no -vvv ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "echo Connection successful"
