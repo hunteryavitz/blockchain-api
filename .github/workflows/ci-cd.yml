@@ -96,12 +96,9 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
           script: |
-            mkdir -p ~/.ssh
-            echo "${{ secrets.SSH_HOST_PUBLIC_KEY }}" >> ~/.ssh/known_hosts
-            echo "listing directory..."
-            ls /home/${{ secrets.SSH_USER }}
-            echo "listing directory done"
-            echo "Next steps: "
+            echo "Listing server home directory..."
+            ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "ls -al /home/${{ secrets.SSH_USER }}"
             echo "Deploying to server..."
-            scp target/*.jar ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/${{ secrets.SSH_USER }}
-            echo "Deployed to server new pushy"
+            rsync -avz -e ssh target/*.jar ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/${{ secrets.SSH_USER }}
+            echo "Starting application..."
+            ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "nohup java -jar /home/${{ secrets.SSH_USER }}/api.jar > /home/${{ secrets.SSH_USER }}/api.log 2>&1 &"
