@@ -98,5 +98,6 @@ jobs:
             echo "listing directory done"
             echo "Next steps: "
             echo "Deploying to server..."
-            scp target/*.jar hunyav@164.92.118.92:/home/hunyav
+            cat ~/.ssh/known_hosts
+            scp target/*.jar ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/${{ secrets.SSH_USER }}
             echo "Deployed to server"
