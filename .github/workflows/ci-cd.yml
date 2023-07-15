@@ -101,4 +101,4 @@ jobs:
             echo "Next steps: "
             echo "Deploying to server..."
             scp target/*.jar ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/${{ secrets.SSH_USER }}
-            echo "Deployed to server"
+            echo "Deployed to server new pushy"
