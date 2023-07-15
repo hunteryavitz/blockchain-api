@@ -85,6 +85,9 @@ jobs:
           mkdir -p ~/.ssh
           echo "${{ secrets.SSH_HOST_PUBLIC_KEY }}" >> ~/.ssh/known_hosts
 
+      - name: List target directory
+        run: ls -al target
+
       - name: Deploy to server
         uses: appleboy/ssh-action@master
         with:
