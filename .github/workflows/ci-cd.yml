@@ -93,4 +93,4 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
           script: |
-            ls
+            ls /home/${{ secrets.SSH_USER }}
