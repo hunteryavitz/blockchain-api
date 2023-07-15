@@ -103,4 +103,4 @@ jobs:
             echo "Updated known hosts:"
             cat ~/.ssh/known_hosts
             echo "Testing SSH connection..."
-            ssh -o StrictHostKeyChecking=no -vvv ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "echo Connection successful"
+            ssh -o StrictHostKeyChecking=no -vvv -i ${{ secrets.SSH_KEY }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "echo Connection successful"
