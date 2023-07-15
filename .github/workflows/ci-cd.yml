@@ -102,5 +102,13 @@ jobs:
             ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
             echo "Updated known hosts:"
             cat ~/.ssh/known_hosts
+
+            echo "Creating a temporary file for the private key..."
+            echo "${{ secrets.SSH_KEY }}" > id_rsa_tmp
+            chmod 600 id_rsa_tmp
+
             echo "Testing SSH connection..."
-            ssh -o StrictHostKeyChecking=no -vvv -i ${{ secrets.SSH_KEY }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "echo Connection successful"
+            ssh -o StrictHostKeyChecking=no -vvv -i id_rsa_tmp ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "echo Connection successful"
+
+            echo "Removing temporary file for the private key..."
+            rm id_rsa_tmp
