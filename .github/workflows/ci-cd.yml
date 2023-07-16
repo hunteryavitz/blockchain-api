@@ -83,52 +83,66 @@ jobs:
       - name: Add server to known hosts
         run: |
           mkdir -p ~/.ssh
+          echo "adding host to known hosts on runner os"
           echo "${{ secrets.SSH_HOST_PUBLIC_KEY }}" >> ~/.ssh/known_hosts
+          echo "boom"
 
       - name: List target directory
-        run: ls -al target
+        run: |
+          echo "running ls -al target on runner os"
+          ls -al target
+          echo "boom"
 
       - name: Deploy to server
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_KEY }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.SSH_PORT }}
           script: |
             echo "1. Current known hosts:"
             cat ~/.ssh/known_hosts
+            echo "boom"
             echo "2. Adding host to known hosts..."
             ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
-            echo "3. Updated known hosts:"
+            echo "boom"
+            echo "3. Current known hosts:"
             cat ~/.ssh/known_hosts
+            echo "boom"
 
             echo "4. Creating a temporary file for the private key..."
-            echo "${{ secrets.SSH_KEY }}" > id_rsa_tmp
+            echo "${{ secrets.SSH_PRIVATE_KEY }}" > id_rsa_tmp
             chmod 600 id_rsa_tmp
+            echo "boom"
 
             echo "5. Testing SSH connection..."
-            ssh -o StrictHostKeyChecking=no -vvv -i id_rsa_tmp ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "echo Connection successful"
+            ssh -o StrictHostKeyChecking=no -vvv -i id_rsa_tmp ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "echo Connection successful with key"
+            echo "boom"
 
       - name: Copy files to server
         run: |
-          echo "6. Listing local target directory..."
-          ls -al target
-          echo "7. Deploying to server..."
-          scp target/*.jar ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/${{ secrets.SSH_USER }}
+          echo "6. running ls on runner os"
+          ls
+          echo "boom"
+          echo "7. scp to server with runner os key file..."
+          scp -i id_rsa_tmp -o StrictHostKeyChecking=no target/*.jar ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/${{ secrets.SSH_USER }}
+          echo "boom"
 
       - name: Start application on server
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_KEY }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.SSH_PORT }}
           script: |
             echo "8. Starting application..."
             nohup java -jar /home/${{ secrets.SSH_USER }}/blockchain-api-0.0.1-SNAPSHOT.jar > /home/${{ secrets.SSH_USER }}/api.log 2>&1 &
+            echo "boom"
 
       - name: Cleanup
         run: |
           echo "9. Removing temporary file for the private key..."
           rm id_rsa_tmp
+          echo "boom"
