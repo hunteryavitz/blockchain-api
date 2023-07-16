@@ -115,7 +115,7 @@ jobs:
           echo "6. Listing local target directory..."
           ls -al target
           echo "7. Deploying to server..."
-          scp -i id_rsa_tmp -o StrictHostKeyChecking=no target/*.jar ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/${{ secrets.SSH_USER }}
+          scp target/*.jar ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/${{ secrets.SSH_USER }}
 
       - name: Start application on server
         uses: appleboy/ssh-action@master
