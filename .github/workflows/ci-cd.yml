@@ -115,6 +115,8 @@ jobs:
             ssh -v -o StrictHostKeyChecking=no -i id_rsa_tmp ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "echo 'Connection successful'"
             echo "7. Listing server home directory..."
             ssh -i id_rsa_tmp ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "ls -al /home/${{ secrets.SSH_USER }}"
+            echo "7a. Listing local target directory..."
+            ls -al target
             echo "8a. Deploying to server..."
             scp -i id_rsa_tmp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null target/blockchain-api-0.0.1-SNAPSHOT.jar ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:~/
             echo "8b. Deploying to server..."
