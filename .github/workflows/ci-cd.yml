@@ -110,5 +110,16 @@ jobs:
             echo "Testing SSH connection..."
             ssh -o StrictHostKeyChecking=no -vvv -i id_rsa_tmp ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "echo Connection successful"
 
+            ======CMD======
+            echo "Testing SSH connection..."
+            ssh -v -o StrictHostKeyChecking=no -i id_rsa_tmp ***@*** "echo 'Connection successful'"
+            echo "Listing server home directory..."
+            ssh -i id_rsa_tmp ***@*** "ls -al /home/***"
+            echo "Deploying to server..."
+            scp -i id_rsa_tmp -o StrictHostKeyChecking=no target/*.jar ***@***:/home/***
+            echo "Starting application..."
+            ssh -i id_rsa_tmp ***@*** "nohup java -jar /home/***/api.jar > /home/***/api.log 2>&1 &"
+            ======END======
+
             echo "Removing temporary file for the private key..."
             rm id_rsa_tmp
