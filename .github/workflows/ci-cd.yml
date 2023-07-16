@@ -110,20 +110,25 @@ jobs:
             echo "5. Testing SSH connection..."
             ssh -o StrictHostKeyChecking=no -vvv -i id_rsa_tmp ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "echo Connection successful"
 
-            ======CMD======
-            echo "6. Testing SSH connection..."
-            ssh -v -o StrictHostKeyChecking=no -i id_rsa_tmp ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "echo 'Connection successful'"
-            echo "7. Listing server home directory..."
-            ssh -i id_rsa_tmp ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "ls -al /home/${{ secrets.SSH_USER }}"
-            echo "7a. Listing local target directory..."
-            ls -al target
-            echo "8a. Deploying to server..."
-            scp -i id_rsa_tmp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null target/blockchain-api-0.0.1-SNAPSHOT.jar ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:~/
-            echo "8b. Deploying to server..."
-            scp -i id_rsa_tmp -o StrictHostKeyChecking=no target/*.jar ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/${{ secrets.SSH_USER }}
-            echo "9. Starting application..."
-            ssh -i id_rsa_tmp ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "nohup java -jar /home/${{ secrets.SSH_USER }}/api.jar > /home/${{ secrets.SSH_USER }}/api.log 2>&1 &"
-            ======END======
+      - name: Copy files to server
+        run: |
+          echo "6. Listing local target directory..."
+          ls -al target
+          echo "7. Deploying to server..."
+          scp -i id_rsa_tmp -o StrictHostKeyChecking=no target/*.jar ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/${{ secrets.SSH_USER }}
 
-            echo "10. Removing temporary file for the private key..."
-            rm id_rsa_tmp
+      - name: Start application on server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          script: |
+            echo "8. Starting application..."
+            nohup java -jar /home/${{ secrets.SSH_USER }}/blockchain-api-0.0.1-SNAPSHOT.jar > /home/${{ secrets.SSH_USER }}/api.log 2>&1 &
+
+      - name: Cleanup
+        run: |
+          echo "9. Removing temporary file for the private key..."
+          rm id_rsa_tmp
