@@ -96,30 +96,32 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
           script: |
-            echo "Current known hosts:"
+            echo "1. Current known hosts:"
             cat ~/.ssh/known_hosts
-            echo "Adding host to known hosts..."
+            echo "2. Adding host to known hosts..."
             ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
-            echo "Updated known hosts:"
+            echo "3. Updated known hosts:"
             cat ~/.ssh/known_hosts
 
-            echo "Creating a temporary file for the private key..."
+            echo "4. Creating a temporary file for the private key..."
             echo "${{ secrets.SSH_KEY }}" > id_rsa_tmp
             chmod 600 id_rsa_tmp
 
-            echo "Testing SSH connection..."
+            echo "5. Testing SSH connection..."
             ssh -o StrictHostKeyChecking=no -vvv -i id_rsa_tmp ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "echo Connection successful"
 
             ======CMD======
-            echo "Testing SSH connection..."
+            echo "6. Testing SSH connection..."
             ssh -v -o StrictHostKeyChecking=no -i id_rsa_tmp ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "echo 'Connection successful'"
-            echo "Listing server home directory..."
+            echo "7. Listing server home directory..."
             ssh -i id_rsa_tmp ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "ls -al /home/${{ secrets.SSH_USER }}"
-            echo "Deploying to server..."
+            echo "8a. Deploying to server..."
+            scp -i id_rsa_tmp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null target/blockchain-api-0.0.1-SNAPSHOT.jar ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:~/
+            echo "8b. Deploying to server..."
             scp -i id_rsa_tmp -o StrictHostKeyChecking=no target/*.jar ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/${{ secrets.SSH_USER }}
-            echo "Starting application..."
+            echo "9. Starting application..."
             ssh -i id_rsa_tmp ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "nohup java -jar /home/${{ secrets.SSH_USER }}/api.jar > /home/${{ secrets.SSH_USER }}/api.log 2>&1 &"
             ======END======
 
-            echo "Removing temporary file for the private key..."
+            echo "10. Removing temporary file for the private key..."
             rm id_rsa_tmp
