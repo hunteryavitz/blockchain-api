@@ -80,6 +80,7 @@ jobs:
         with:
           name: build-artifacts
           path: target
+
       - name: Add server to known hosts
         run: |
           mkdir -p ~/.ssh
@@ -93,12 +94,18 @@ jobs:
           ls -al target
           echo "boom"
 
+      - name: Prepare SSH key
+        run: |
+          echo "Creating a temporary file for the private key..."
+          echo "${{ secrets.SSH_KEY }}" > id_rsa_tmp
+          chmod 600 id_rsa_tmp
+
       - name: Deploy to server
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          key: ./id_rsa_tmp
           port: ${{ secrets.SSH_PORT }}
           script: |
             echo "1. Current known hosts:"
@@ -109,11 +116,6 @@ jobs:
             echo "boom"
             echo "3. Current known hosts:"
             cat ~/.ssh/known_hosts
-            echo "boom"
-
-            echo "4. Creating a temporary file for the private key..."
-            echo "${{ secrets.SSH_PRIVATE_KEY }}" > id_rsa_tmp
-            chmod 600 id_rsa_tmp
             echo "boom"
 
             echo "5. Testing SSH connection..."
@@ -134,7 +136,7 @@ jobs:
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          key: ./id_rsa_tmp
           port: ${{ secrets.SSH_PORT }}
           script: |
             echo "8. Starting application..."
