@@ -97,7 +97,7 @@ jobs:
       - name: Prepare SSH key
         run: |
           echo "Creating a temporary file for the private key..."
-          echo "${{ secrets.SSH_KEY }}" > id_rsa_tmp
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > id_rsa_tmp
           chmod 600 id_rsa_tmp
 
       - name: Deploy to server
@@ -105,7 +105,7 @@ jobs:
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
-          key: ./id_rsa_tmp
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.SSH_PORT }}
           script: |
             echo "1. Current known hosts:"
