@@ -109,7 +109,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.SSH_PORT }}
           script: |
-            pkill -f api.jar || echo "No running application found"
+            sudo pkill -f api.jar || echo "No running application found"
 
       - name: SCP file to server
         run: scp -i id_rsa_tmp -o StrictHostKeyChecking=no target/*.jar ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/${{ secrets.SSH_USER }}/api.jar
