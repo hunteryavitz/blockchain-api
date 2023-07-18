@@ -121,8 +121,14 @@ jobs:
             echo "5. Testing SSH connection..."
             ssh -o StrictHostKeyChecking=no -vvv -i id_rsa_tmp ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "echo Connection successful with key"
             echo "boom"
-            echo "6. running ls on runner os"
+
+      - name: List and SCP
+        run: |            
+            echo "6a. list"
             ls
+            echo "boom"
+            echo "6b. list target"
+            ls target
             echo "boom"
             echo "7. scp to server with runner os key file..."
             scp -i id_rsa_tmp -o StrictHostKeyChecking=no target/*.jar ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/${{ secrets.SSH_USER }}
