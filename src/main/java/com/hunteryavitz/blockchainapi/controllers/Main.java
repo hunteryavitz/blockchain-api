@@ -30,6 +30,10 @@ public class Main {
         return ResponseEntity.ok(true);
     }
 
+    /**
+     * Returns the version of the API.
+     * @return 200 response with the version of the API
+     */
     @GetMapping("/version")
     public ResponseEntity<String> getVersion() {
         return ResponseEntity.ok("0.0.1");
