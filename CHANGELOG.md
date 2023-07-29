@@ -1,6 +1,12 @@
 # CHANGELOG
 Unreleased
 
+**7/29/23**
+
+*v0.0.2*
+
+- [Add @CrossOrigin to Controller](#16)
+
 **7/8/23**
 
 *v0.0.1*
