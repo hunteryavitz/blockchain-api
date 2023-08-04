@@ -1,15 +1,19 @@
-# CHANGELOG
+# Blockchain API
 Unreleased
+
+*v0.0.1*
+
+**8/3/23**
+
+- [Add SSL Connection to Server](#15)
 
 **7/29/23**
 
-*v0.0.2*
-
+- [Add Remote DEV Environment](#10)
+- [Integrate Original CI-CD](#13)
 - [Add @CrossOrigin to Controller](#16)
 
 **7/8/23**
-
-*v0.0.1*
 
 - [Add Deployment Pipeline](#1)
 - [Stub Out Jobs for Deployment Pipeline](#3)

@@ -9,6 +9,8 @@ This back end serves as the API for the blockchain project.
 ### Details
 This API will service requests from the client-side of this project.
 
+The remote server is equipped with an SSL connection.
+
 **Build and Compile**
 ```shell
 mvn package
