@@ -3,6 +3,10 @@ Unreleased
 
 *v0.0.1*
 
+**8/5/23**
+
+-[Create Basic CRUD for Blockchain Object](#20)
+
 **8/3/23**
 
 - [Add SSL Connection to Server](#15)
