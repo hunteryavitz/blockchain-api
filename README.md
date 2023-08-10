@@ -26,6 +26,30 @@ mvn test
 mvn javadoc:javadoc
 ```
 
+### Endpoints
+The current serviceable endpoints are as follows:
+
+**Readiness Check**
+- [localhost:8080/api/v1/readiness](http://localhost:8080/api/v1/readiness)
+
+**Liveness Check**
+- [localhost:8080/api/v1/liveness](http://localhost:8080/api/v1/liveness)
+
+**Version Check**
+- [localhost:8080/api/v1/version](http://localhost:8080/api/v1/version)
+
+**Verify Blockchain**
+- [localhost:8080/api/v1/verifyBlockchain](http://localhost:8080/api/v1/verifyBlockchain)
+
+**Add Block to Blockchain**
+- [localhost:8080/api/v1/block/addBlockToBlockchain](http://localhost:8080/api/v1/block/addBlockToBlockchain)
+
+**Verify Blockchain**
+- [localhost:8080/api/v1/blockchain/verifyBlockchain](http://localhost:8080/api/v1/blockchain/verifyBlockchain)
+
+**Get Blockchain**
+- [localhost:8080/api/v1/blockchain/getBlockchain](http://localhost:8080/api/v1/blockchain/getBlockchain)
+
 ### Summary
 The aim of this API is to provide service to the client-side.
 

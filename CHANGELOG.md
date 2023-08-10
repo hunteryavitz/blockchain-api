@@ -5,6 +5,7 @@ Unreleased
 
 **8/5/23**
 
+-[Troubleshoot Failing Endpoints](#22)
 -[Create Basic CRUD for Blockchain Object](#20)
 
 **8/3/23**

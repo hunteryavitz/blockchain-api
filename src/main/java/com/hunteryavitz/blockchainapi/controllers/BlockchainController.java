@@ -1,4 +1,4 @@
-package com.hunteryavitz.blockchainapi.controllers.blockchain;
+package com.hunteryavitz.blockchainapi.controllers;
 
 import com.hunteryavitz.blockchainapi.entities.Block;
 import com.hunteryavitz.blockchainapi.services.BlockchainService;
