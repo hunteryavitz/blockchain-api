@@ -109,10 +109,16 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.SSH_PORT }}
           script: |
-            echo 'pkill -f api.jar || true'
-
-      - name: Terminate API
-        run: ./terminate-api.sh
+            echo 'starting script'
+            if pgrep -f api.jar > /dev/null; then
+                pkill -f api.jar
+                echo "Terminated running application"
+                exit 0  # Explicitly exit with a success status
+            else
+                echo "No running application found"
+                exit 0  # Explicitly exit with a success status
+            fi
+            echo 'ending script'
 
       - name: SCP file to server
         run: scp -i id_rsa_tmp -o StrictHostKeyChecking=no target/*.jar ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/${{ secrets.SSH_USER }}/api.jar
