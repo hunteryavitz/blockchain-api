@@ -5,16 +5,17 @@ Unreleased
 
 **8/13/23**
 
--[Create Missing Unit Tests](#24)
--[Fix Failing Unit Test](#26)
+- [Create Missing Unit Tests](#24)
+- [Fix Failing Unit Test](#26)
+- [Modify pkill Command to Accept SIGTERM](#28)
 
 **8/9/23**
 
--[Troubleshoot Failing Endpoints](#22)
+[Troubleshoot Failing Endpoints](#22)
 
 **8/5/23**
 
--[Create Basic CRUD for Blockchain Object](#20)
+- [Create Basic CRUD for Blockchain Object](#20)
 
 **8/3/23**
 
