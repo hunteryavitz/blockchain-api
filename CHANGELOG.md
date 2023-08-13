@@ -3,9 +3,16 @@ Unreleased
 
 *v0.0.1*
 
-**8/5/23**
+**8/13/23**
+
+-[Create Missing Unit Tests](#24)
+
+**8/9/23**
 
 -[Troubleshoot Failing Endpoints](#22)
+
+**8/5/23**
+
 -[Create Basic CRUD for Blockchain Object](#20)
 
 **8/3/23**

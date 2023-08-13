@@ -1,7 +1,8 @@
-package com.hunteryavitz.blockchainapi.controllers;
+package com.hunteryavitz.blockchainapi.controllers.block;
 
 import com.hunteryavitz.blockchainapi.services.BlockchainService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
  * The BlockController class is the controller for the block endpoints.
  */
 @RestController
+@CrossOrigin
 @RequestMapping("/api/v1/block")
 public class BlockController {
 
@@ -43,5 +45,4 @@ public class BlockController {
         }
         return ResponseEntity.ok(true);
     }
-
 }
