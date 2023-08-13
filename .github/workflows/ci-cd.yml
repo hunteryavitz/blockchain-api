@@ -101,25 +101,6 @@ jobs:
           script: |
             ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
 
-      - name: Stop existing application
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: ${{ secrets.SSH_PORT }}
-          script: |
-            echo 'starting script'
-            if pgrep -f api.jar > /dev/null; then
-                pkill -f api.jar
-                echo "Terminated running application"
-                exit 0  # Explicitly exit with a success status
-            else
-                echo "No running application found"
-                exit 0  # Explicitly exit with a success status
-            fi
-            echo 'ending script'
-
       - name: SCP file to server
         run: scp -i id_rsa_tmp -o StrictHostKeyChecking=no target/*.jar ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/${{ secrets.SSH_USER }}/api.jar
 
