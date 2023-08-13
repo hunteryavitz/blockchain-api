@@ -6,6 +6,7 @@ Unreleased
 **8/13/23**
 
 -[Create Missing Unit Tests](#24)
+-[Fix Failing Unit Test](#26)
 
 **8/9/23**
 

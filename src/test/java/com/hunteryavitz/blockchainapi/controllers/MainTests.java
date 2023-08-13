@@ -1,5 +1,7 @@
 package com.hunteryavitz.blockchainapi.controllers;
 
+import com.hunteryavitz.blockchainapi.services.BlockchainService;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -11,6 +13,11 @@ import org.springframework.http.ResponseEntity;
  */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class MainTests {
+
+    /**
+     * The blockchain service.
+     */
+    private static BlockchainService blockchainService;
 
     /**
      * The RestTemplate used to make requests to the API.
@@ -42,6 +49,17 @@ public class MainTests {
      * The addBlock endpoint.
      */
     private static final String VERIFY_ENDPOINT = "/verifyBlockchain";
+
+    /**
+     * Sets up the blockchain service.
+     */
+    @BeforeAll
+    static void beforeAll() {
+        if (blockchainService == null) {
+            blockchainService = new BlockchainService();
+            blockchainService.createInitialBlockchain();
+        }
+    }
 
     /**
      * Tests the isReady method.
