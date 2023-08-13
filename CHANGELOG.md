@@ -8,6 +8,7 @@ Unreleased
 - [Create Missing Unit Tests](#24)
 - [Fix Failing Unit Test](#26)
 - [Modify pkill Command to Accept SIGTERM](#28)
+- [Troubleshoot Deployment pkill Command](#30)
 
 **8/9/23**
 
