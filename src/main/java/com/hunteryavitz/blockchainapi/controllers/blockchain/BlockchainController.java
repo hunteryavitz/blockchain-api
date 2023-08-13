@@ -1,8 +1,9 @@
-package com.hunteryavitz.blockchainapi.controllers;
+package com.hunteryavitz.blockchainapi.controllers.blockchain;
 
 import com.hunteryavitz.blockchainapi.entities.Block;
 import com.hunteryavitz.blockchainapi.services.BlockchainService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
  * The BlockchainController class is the controller for the blockchain endpoints.
  */
 @RestController
+@CrossOrigin
 @RequestMapping("/api/v1/blockchain")
 public class BlockchainController {
 
