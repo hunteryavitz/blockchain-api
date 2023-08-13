@@ -49,14 +49,15 @@ public class BlockchainService {
         Block block;
 
         try {
-            block = new Block(nextBlockIndex, previousBlock.getHash(), System.currentTimeMillis(), "Block " + nextBlockIndex,
-                    Utils.calculateHash(nextBlockIndex, previousBlock.getHash(), System.currentTimeMillis(), "Block " + nextBlockIndex));
+            block = new Block(nextBlockIndex, previousBlock.getHash(),
+                    System.currentTimeMillis(), "Block " + nextBlockIndex,
+                    Utils.calculateHash(nextBlockIndex, previousBlock.getHash(),
+                            System.currentTimeMillis(), "Block " + nextBlockIndex));
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException(e);
         }
 
         blockchain[nextBlockIndex] = block;
-
     }
 
     /**
@@ -74,5 +75,4 @@ public class BlockchainService {
     public Block[] getBlockchain() {
         return blockchain;
     }
-
 }
