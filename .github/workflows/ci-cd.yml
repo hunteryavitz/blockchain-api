@@ -112,7 +112,7 @@ jobs:
             echo 'pkill -f api.jar || true'
 
       - name: Terminate API
-        run: ./scripts//terminate-api.sh
+        run: ./terminate-api.sh
 
       - name: SCP file to server
         run: scp -i id_rsa_tmp -o StrictHostKeyChecking=no target/*.jar ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/${{ secrets.SSH_USER }}/api.jar
