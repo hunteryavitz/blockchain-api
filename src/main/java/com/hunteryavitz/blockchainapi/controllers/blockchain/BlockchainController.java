@@ -3,10 +3,7 @@ package com.hunteryavitz.blockchainapi.controllers.blockchain;
 import com.hunteryavitz.blockchainapi.entities.Block;
 import com.hunteryavitz.blockchainapi.services.BlockchainService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * The BlockchainController class is the controller for the blockchain endpoints.
@@ -52,5 +49,17 @@ public class BlockchainController {
     public ResponseEntity<Block[]> getBlockchain() {
         Block[] blockchain = blockchainService.getBlockchain();
         return ResponseEntity.ok(blockchain);
+    }
+
+    /**
+     * The getBlockById method is the endpoint for getting a block by its id.
+     * @param id The id of the block.
+     * @return A ResponseEntity containing the block.
+     */
+    @GetMapping("/getBlockById")
+    public ResponseEntity<Block> getBlockById(@RequestParam int id) {
+
+        Block block = blockchainService.getBlockById(id);
+        return ResponseEntity.ok(block);
     }
 }

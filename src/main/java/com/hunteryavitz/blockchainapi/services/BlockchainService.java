@@ -75,4 +75,9 @@ public class BlockchainService {
     public Block[] getBlockchain() {
         return blockchain;
     }
+
+    public Block getBlockById(int id) {
+
+        return blockchain[id];
+    }
 }

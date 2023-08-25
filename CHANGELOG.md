@@ -3,6 +3,10 @@ Unreleased
 
 *v0.0.1*
 
+**8/24/23**
+
+- [ADD Endpoint to Fetch Block by ID](#32)
+
 **8/13/23**
 
 - [Create Missing Unit Tests](#24)

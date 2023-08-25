@@ -74,4 +74,21 @@ public class BlockchainTests {
         assertEquals(200, response.getStatusCodeValue()); // checks if the status code is 200 OK
         assertArrayEquals(mockBlockchain, response.getBody()); // checks if the returned blockchain matches the mock
     }
+
+    /**
+     * Tests the getBlockById method.
+     */
+    @Test
+    void testGetBlockById() {
+        // Arrange
+        Block mockBlock = blockchainService.getBlockById(0);
+        when(blockchainService.getBlockById(0)).thenReturn(mockBlock);
+
+        // Act
+        ResponseEntity<Block> response = blockchainController.getBlockById(0);
+
+        // Assert
+        assertEquals(200, response.getStatusCodeValue()); // checks if the status code is 200 OK
+        assertEquals(mockBlock, response.getBody()); // checks if the returned block matches the mock
+    }
 }
