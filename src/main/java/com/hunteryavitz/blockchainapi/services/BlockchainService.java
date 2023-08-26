@@ -76,6 +76,11 @@ public class BlockchainService {
         return blockchain;
     }
 
+    /**
+     * The getBlockById method is responsible for returning a block from the blockchain by its id.
+     * @param id The id of the block.
+     * @return The block.
+     */
     public Block getBlockById(int id) {
 
         return blockchain[id];
