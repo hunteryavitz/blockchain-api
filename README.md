@@ -50,6 +50,9 @@ The current serviceable endpoints are as follows:
 **Get Blockchain**
 - [localhost:8080/api/v1/blockchain/getBlockchain](http://localhost:8080/api/v1/blockchain/getBlockchain)
 
+**Get Block by ID**
+- [localhost:8080/api/v1/blockchain/getBlockById?id={id}](http://localhost:8080/api/v1/blockchain/getBlockById?id=0)
+
 ### Summary
 The aim of this API is to provide service to the client-side.
 
