@@ -3,6 +3,10 @@ Unreleased
 
 *v0.0.1*
 
+**8/27/23**
+
+- [Fix Failing Unit Test for Verify Blockchain](#34)g
+
 **8/24/23**
 
 - [ADD Endpoint to Fetch Block by ID](#32)
