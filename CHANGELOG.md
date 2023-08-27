@@ -6,6 +6,7 @@ Unreleased
 **8/27/23**
 
 - [Fix Failing Unit Test for Verify Blockchain](#34)g
+- [ADD Transaction to Block](#36)
 
 **8/24/23**
 
