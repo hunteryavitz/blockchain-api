@@ -1,10 +1,12 @@
 package com.hunteryavitz.blockchainapi.services;
 
 import com.hunteryavitz.blockchainapi.entities.Block;
+import com.hunteryavitz.blockchainapi.entities.Transaction;
 import com.hunteryavitz.blockchainapi.utils.Utils;
 import org.springframework.stereotype.Service;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
 
 /**
  * The BlockchainService class is responsible for managing the blockchain.
@@ -42,7 +44,7 @@ public class BlockchainService {
      */
     public void addBlockToBlockchain() {
 
-        int nextBlockIndex = Utils.getNextBlockIndexFromBlockchain(blockchain);
+        int nextBlockIndex = getNextBlockIndexFromBlockchain();
 
         Block previousBlock = blockchain[nextBlockIndex - 1];
 
@@ -53,6 +55,32 @@ public class BlockchainService {
                     System.currentTimeMillis(), "Block " + nextBlockIndex,
                     Utils.calculateHash(nextBlockIndex, previousBlock.getHash(),
                             System.currentTimeMillis(), "Block " + nextBlockIndex));
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+
+        blockchain[nextBlockIndex] = block;
+    }
+
+    /**
+     * The addBlockToBlockchain method is responsible for adding a block to the blockchain.
+     * @param transactionPool The transaction pool.
+     */
+    public void addBlockToBlockchain(Transaction[] transactionPool) {
+
+        String payload = Arrays.toString(transactionPool);
+
+        int nextBlockIndex = getNextBlockIndexFromBlockchain();
+
+        Block previousBlock = blockchain[nextBlockIndex - 1];
+
+        Block block;
+
+        try {
+            block = new Block(nextBlockIndex, previousBlock.getHash(),
+                    System.currentTimeMillis(), payload,
+                    Utils.calculateHash(nextBlockIndex, previousBlock.getHash(),
+                            System.currentTimeMillis(), payload));
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException(e);
         }
@@ -82,7 +110,14 @@ public class BlockchainService {
      * @return The block.
      */
     public Block getBlockById(int id) {
-
         return blockchain[id];
+    }
+
+    /**
+     * The getNextBlockIndexFromBlockchain method is responsible for returning the next block index from the blockchain.
+     * @return The next block index from the blockchain.
+     */
+    private int getNextBlockIndexFromBlockchain() {
+        return Utils.getNextBlockIndexFromBlockchain(blockchain);
     }
 }

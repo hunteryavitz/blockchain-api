@@ -53,6 +53,9 @@ The current serviceable endpoints are as follows:
 **Get Block by ID**
 - [localhost:8080/api/v1/blockchain/getBlockById?id={id}](http://localhost:8080/api/v1/blockchain/getBlockById?id=0)
 
+**Add Transaction**
+- [localhost:8080/api/v1/transaction/addTransaction](http://localhost:8080/api/v1/transaction/addTransaction)
+
 ### Summary
 The aim of this API is to provide service to the client-side.
 
