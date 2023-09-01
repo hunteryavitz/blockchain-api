@@ -96,6 +96,8 @@ public class MainTests {
      */
     @Test
     void testVerifyBlockchain() {
+        blockchainService = new BlockchainService();
+        blockchainService.createInitialBlockchain();
         ResponseEntity<Boolean> response = restTemplate.getForEntity(API_VERSION + VERIFY_ENDPOINT, Boolean.class);
         assert response.getStatusCode().is2xxSuccessful();
         assert (Boolean.TRUE.equals(response.getBody()));
