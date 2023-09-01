@@ -3,6 +3,10 @@ Unreleased
 
 *v0.0.1*
 
+**9/1/23**
+
+- [ADD Transaction to Block](#36)
+
 **8/27/23**
 
 - [Fix Failing Unit Test for Verify Blockchain](#34)g
