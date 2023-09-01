@@ -1,5 +1,6 @@
 package com.hunteryavitz.blockchainapi.controllers.transaction;
 
+import com.hunteryavitz.blockchainapi.entities.Block;
 import com.hunteryavitz.blockchainapi.entities.Transaction;
 import com.hunteryavitz.blockchainapi.services.TransactionService;
 import org.junit.jupiter.api.Test;
@@ -44,6 +45,14 @@ public class TransactionTest {
      */
     private static final String SUBMIT_TRANSACTION_ENDPOINT = "/transaction/submitTransaction";
 
+    /**
+     * The get transaction pool endpoint.
+     */
+    private static final String GET_BLOCK_BY_INDEX_ENDPOINT = "/blockchain/getBlockById?id=1";
+
+    /**
+     * Tests the getBlockchain endpoint.
+     */
     @Test
     void testSubmitTransaction() {
         Transaction transaction = new Transaction(999, "right_now", "your mom", "CREATED");
@@ -54,4 +63,31 @@ public class TransactionTest {
         assert response.getStatusCode().is2xxSuccessful();
         assert (Boolean.TRUE.equals(response.getBody()));
     }
+
+    /**
+     * Tests the Transaction Service to add Block to Blockchain when full.
+     */
+    @Test
+    void testAddsBlockOnFullTransactionPool() {
+
+        transactionService = new TransactionService();
+        transactionService.createInitialTransactionPool();
+        Transaction transaction = new Transaction(999, "right_now", "your mom", "CREATED");
+
+        int transactionPoolLength = transactionService.getTransactionPool().length;
+
+        for (int i = 0; i < transactionPoolLength; i++) {
+            transactionService.submitTransaction(transaction);
+        }
+
+        ResponseEntity<Block> response = restTemplate.getForEntity(
+                API_VERSION + GET_BLOCK_BY_INDEX_ENDPOINT, Block.class);
+
+        assert response.getStatusCode().is2xxSuccessful();
+
+        Block block = response.getBody();
+        System.out.println(block);
+        assert block != null;
+    }
+
 }

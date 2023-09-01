@@ -3,8 +3,6 @@ package com.hunteryavitz.blockchainapi.services;
 import com.hunteryavitz.blockchainapi.entities.Transaction;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-
 /**
  * The TransactionService class is responsible for managing transactions.
  */
@@ -25,6 +23,11 @@ public class TransactionService {
      * The constructor for the TransactionService class.
      */
     public void createInitialTransactionPool() {
+
+        if (blockchainService == null) {
+            blockchainService = new BlockchainService();
+        }
+
         transactionPool = new Transaction[10];
     }
 
@@ -33,18 +36,18 @@ public class TransactionService {
      * @param transaction The transaction to be submitted to the transaction pool.
      */
     public void submitTransaction(Transaction transaction) {
+
         for (int i = 0; i < transactionPool.length; i++) {
             if (transactionPool[i] == null) {
                 transactionPool[i] = transaction;
-                if (i == transactionPool.length) {
+                if (i == (transactionPool.length - 1)) {
                     blockchainService.addBlockToBlockchain(transactionPool);
                     createInitialTransactionPool();
                 }
+
                 break;
             }
         }
-        System.out.println("\n" + transaction + "submitted to transaction pool.");
-        System.out.println("transaction pool: " + Arrays.toString(transactionPool));
     }
 
     /**

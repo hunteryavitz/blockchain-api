@@ -39,4 +39,13 @@ public class TransactionController {
         transactionService.submitTransaction(transaction);
         return ResponseEntity.ok(true);
     }
+
+    /**
+     * The getTransactionPool method is responsible for returning the transaction pool.
+     * @return The transaction pool.
+     */
+    @GetMapping(value = "/getTransactionPool", produces = "application/json")
+    public ResponseEntity<Transaction[]> getTransactionPool() {
+        return ResponseEntity.ok(transactionService.getTransactionPool());
+    }
 }
