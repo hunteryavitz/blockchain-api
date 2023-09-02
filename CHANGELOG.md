@@ -1,7 +1,11 @@
 # Blockchain API
 Unreleased
 
-*v0.0.1*
+*v0.0.13*
+
+**9/2/23**
+
+- [Update Versions for CI-CD](#41)
 
 **9/1/23**
 

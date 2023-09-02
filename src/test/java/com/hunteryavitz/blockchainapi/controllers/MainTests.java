@@ -88,7 +88,7 @@ public class MainTests {
     void testGetVersion() {
         ResponseEntity<String> response = restTemplate.getForEntity(API_VERSION + VERSION_ENDPOINT, String.class);
         assert response.getStatusCode().is2xxSuccessful();
-        assert ("0.0.12".equals(response.getBody()));
+        assert ("0.0.13".equals(response.getBody()));
     }
 
     /**
