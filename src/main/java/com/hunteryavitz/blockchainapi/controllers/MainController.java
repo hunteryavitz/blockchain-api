@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @CrossOrigin
 @RequestMapping("/api/v1")
-public class Main {
+public class MainController {
 
     /**
      * The blockchain service.
@@ -24,7 +24,7 @@ public class Main {
      * Constructor for the Main controller.
      * @param blockchainService The blockchain service.
      */
-    public Main(BlockchainService blockchainService) {
+    public MainController(BlockchainService blockchainService) {
         this.blockchainService = blockchainService;
         if (blockchainService.getBlockchain() == null) {
             blockchainService.createInitialBlockchain();
