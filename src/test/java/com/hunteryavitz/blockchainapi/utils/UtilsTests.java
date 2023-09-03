@@ -4,6 +4,8 @@ import com.hunteryavitz.blockchainapi.entities.Block;
 import com.hunteryavitz.blockchainapi.services.BlockchainService;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.TestPropertySource;
+
 import java.security.NoSuchAlgorithmException;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -12,6 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * Unit tests for the Utils class.
  */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@TestPropertySource(locations = "classpath:application-test.properties")
 public class UtilsTests {
 
     /**
@@ -20,18 +23,15 @@ public class UtilsTests {
      */
     @Test
     public void testCalculateHash() throws NoSuchAlgorithmException {
-        // Prepare test data
+
         int index = 1;
         String previousHash = "abc";
         long timestamp = 1234567890L;
         String data = "test data";
 
-        // Call the method under test
         String hash = Utils.calculateHash(index, previousHash, timestamp, data);
 
-        // Assert the result (this will depend on the actual hash algorithm)
         assertNotNull(hash);
-        // Other assertions as needed...
     }
 
     /**
@@ -39,18 +39,19 @@ public class UtilsTests {
      */
     @Test
     public void testVerifyBlockchain() {
+
         BlockchainService blockchainService = new BlockchainService();
 
-        // Prepare test data
+        blockchainService.addBlockToBlockchain();
         Block[] blockchain = blockchainService.getBlockchain();
 
-        // Call the method under test
         boolean isValid = Utils.verifyBlockchain(blockchain);
 
-        // Assert the result
         assertTrue(isValid);
 
-        // More tests can be added for invalid blockchains
+        blockchain[1].setHash("abc");
+        isValid = Utils.verifyBlockchain(blockchain);
+        assertFalse(isValid);
     }
 
     /**
@@ -60,7 +61,6 @@ public class UtilsTests {
     public void testGetNextBlockIndexFromBlockchain() {
 
         BlockchainService blockchainService = new BlockchainService();
-
         Block[] blockchain = blockchainService.getBlockchain();
 
         int nextIndex = Utils.getNextBlockIndexFromBlockchain(blockchain);
@@ -75,5 +75,4 @@ public class UtilsTests {
 
         assertEquals(expectedNextIndex, nextIndex);
     }
-
 }

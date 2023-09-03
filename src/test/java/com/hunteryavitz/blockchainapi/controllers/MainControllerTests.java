@@ -6,13 +6,21 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.core.env.Environment;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.TestPropertySource;
+
+import java.util.Arrays;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Unit tests for the Main controller for the API.
  */
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class MainTests {
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
+    properties = {"spring.profiles.active=test"})
+@TestPropertySource(locations = "classpath:application-test.properties")
+public class MainControllerTests {
 
     /**
      * The blockchain service.
@@ -49,6 +57,15 @@ public class MainTests {
      * The addBlock endpoint.
      */
     private static final String VERIFY_ENDPOINT = "/verifyBlockchain";
+
+    @Autowired
+    private Environment environment;
+
+    @Test
+    public void testActiveProfiles() {
+        assertTrue(Arrays.asList(environment.getActiveProfiles()).contains("test"));
+    }
+
 
     /**
      * Sets up the blockchain service.
