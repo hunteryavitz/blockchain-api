@@ -1,4 +1,4 @@
-package com.hunteryavitz.blockchainapi.controllers.block;
+package com.hunteryavitz.blockchainapi.controllers;
 
 import com.hunteryavitz.blockchainapi.services.BlockchainService;
 import org.springframework.http.ResponseEntity;

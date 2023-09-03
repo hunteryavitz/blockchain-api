@@ -1,4 +1,4 @@
-package com.hunteryavitz.blockchainapi.controllers.transaction;
+package com.hunteryavitz.blockchainapi.controllers;
 
 import com.hunteryavitz.blockchainapi.entities.Transaction;
 import com.hunteryavitz.blockchainapi.services.TransactionService;
