@@ -1,16 +1,18 @@
-package com.hunteryavitz.blockchainapi.controllers.block;
+package com.hunteryavitz.blockchainapi.controllers;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.TestPropertySource;
 
 /**
  * Unit tests for the Main controller for the API.
  */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class BlockTests {
+@TestPropertySource(locations = "classpath:application-test.properties")
+public class BlockControllerTests {
 
     /**
      * The RestTemplate used to make requests to the API.

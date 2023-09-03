@@ -69,7 +69,7 @@ jobs:
           publish_branch: gh-pages
           force_orphan: true
           enable_jekyll: true
-          cname: javadoc.blockchain-api.com
+          cname: hunteryavitz.com
 
   deploy:
     needs: javadoc

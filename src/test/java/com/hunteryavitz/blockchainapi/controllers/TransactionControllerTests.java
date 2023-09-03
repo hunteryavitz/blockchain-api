@@ -1,4 +1,4 @@
-package com.hunteryavitz.blockchainapi.controllers.transaction;
+package com.hunteryavitz.blockchainapi.controllers;
 
 import com.hunteryavitz.blockchainapi.entities.Block;
 import com.hunteryavitz.blockchainapi.entities.Transaction;
@@ -10,12 +10,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.TestPropertySource;
 
 /**
  * Unit tests for the Transaction controller for the API.
  */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class TransactionTest {
+@TestPropertySource(locations = "classpath:application-test.properties")
+public class TransactionControllerTests {
 
     /**
      * The TransactionService used to make requests to the API.
