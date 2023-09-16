@@ -93,9 +93,10 @@ public class MainControllerTests {
      */
     @Test
     void isAlive() {
-        ResponseEntity<Boolean> response = restTemplate.getForEntity(API_VERSION + LIVENESS_ENDPOINT, Boolean.class);
+        ResponseEntity<Integer> response = restTemplate.getForEntity(API_VERSION + LIVENESS_ENDPOINT, Integer.class);
         assert response.getStatusCode().is2xxSuccessful();
-        assert (Boolean.TRUE.equals(response.getBody()));
+        assert (response.getBody() != null);
+        //        assert (Boolean.TRUE.equals(response.getBody()));
     }
 
     /**
@@ -105,7 +106,7 @@ public class MainControllerTests {
     void testGetVersion() {
         ResponseEntity<String> response = restTemplate.getForEntity(API_VERSION + VERSION_ENDPOINT, String.class);
         assert response.getStatusCode().is2xxSuccessful();
-        assert ("0.0.13".equals(response.getBody()));
+        assert ("0.0.14".equals(response.getBody()));
     }
 
     /**

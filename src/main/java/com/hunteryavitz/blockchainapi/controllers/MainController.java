@@ -37,6 +37,12 @@ public class MainController {
      */
     @GetMapping("/readiness")
     public ResponseEntity<Boolean> isReady() {
+
+        // application is running
+        // service passes checks
+        // blockchain is valid
+
+        blockchainService.checkReadiness();
         return ResponseEntity.ok(true);
     }
 
@@ -45,8 +51,9 @@ public class MainController {
      * @return 200 response
      */
     @GetMapping("/liveness")
-    public ResponseEntity<Boolean> isAlive() {
-        return ResponseEntity.ok(true);
+    public ResponseEntity<Integer> isAlive() {
+
+        return ResponseEntity.ok(blockchainService.isAlive());
     }
 
     /**
@@ -55,7 +62,7 @@ public class MainController {
      */
     @GetMapping("/version")
     public ResponseEntity<String> getVersion() {
-        return ResponseEntity.ok("0.0.131");
+        return ResponseEntity.ok("0.0.14");
     }
 
     /**

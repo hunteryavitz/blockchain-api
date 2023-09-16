@@ -20,9 +20,16 @@ public class BlockchainService {
     private static Block[] blockchain;
 
     /**
+     * The liveness array is an array of booleans that indicate whether a block is alive.
+     */
+    private static Boolean[] liveness;
+
+    /**
      * The constructor for the BlockchainService class.
      */
     public void createInitialBlockchain() {
+
+        liveness = new Boolean[100];
 
         blockchain = new Block[100];
         Block genesisBlock;
@@ -37,6 +44,14 @@ public class BlockchainService {
 
         blockchain[0] = genesisBlock;
 
+    }
+
+    /**
+     * The isAlive method is responsible for returning the liveness of the blockchain.
+     * @return The liveness of the blockchain.
+     */
+    public int isAlive() {
+        return Utils.calculateLiveness(liveness);
     }
 
     /**
@@ -119,5 +134,12 @@ public class BlockchainService {
      */
     private int getNextBlockIndexFromBlockchain() {
         return Utils.getNextBlockIndexFromBlockchain(blockchain);
+    }
+
+    /**
+     * The checkReadiness method is responsible for checking the readiness of the blockchain.
+     */
+    public void checkReadiness() {
+        liveness = Utils.updateLiveness(liveness);
     }
 }
