@@ -1,7 +1,15 @@
 # Blockchain API
 Unreleased
 
-*v0.0.13*
+*v0.0.14*
+
+**9/16/23**
+
+-[MODIFY Liveness Check to Return Integer](#45)
+
+**9/4/23**
+
+-[ADD Remaining Unit Tests](#43)
 
 **9/2/23**
 
