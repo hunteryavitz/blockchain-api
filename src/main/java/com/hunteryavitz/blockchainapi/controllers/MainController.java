@@ -56,6 +56,10 @@ public class MainController {
         return ResponseEntity.ok(blockchainService.isAlive());
     }
 
+    /**
+     * Returns the health metrics of the blockchain.
+     * @return 200 response with the health metrics of the blockchain
+     */
     @GetMapping("/health")
     public ResponseEntity<Integer[]> isHealthy() {
         Integer[] healthMetrics = blockchainService.getHealthMetrics();
