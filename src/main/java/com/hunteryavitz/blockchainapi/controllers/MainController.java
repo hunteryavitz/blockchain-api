@@ -56,6 +56,12 @@ public class MainController {
         return ResponseEntity.ok(blockchainService.isAlive());
     }
 
+    @GetMapping("/health")
+    public ResponseEntity<Integer[]> isHealthy() {
+        Integer[] healthMetrics = blockchainService.getHealthMetrics();
+        return ResponseEntity.ok(healthMetrics);
+    }
+
     /**
      * Returns the version of the API.
      * @return 200 response with the version of the API

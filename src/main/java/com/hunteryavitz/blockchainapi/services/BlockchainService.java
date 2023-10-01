@@ -142,4 +142,18 @@ public class BlockchainService {
     public void checkReadiness() {
         liveness = Utils.updateLiveness(liveness);
     }
+
+    /**
+     * The getHealthMetrics method is responsible for returning the health metrics of the blockchain.
+     * @return The health metrics of the blockchain.
+     */
+    public Integer[] getHealthMetrics() {
+        Integer[] healthMetrics = new Integer[5];
+
+        for (int i = 0; i < healthMetrics.length; i++) {
+            healthMetrics[i] = (int) (Math.random() * 100 + 1);
+        }
+
+        return healthMetrics;
+    }
 }

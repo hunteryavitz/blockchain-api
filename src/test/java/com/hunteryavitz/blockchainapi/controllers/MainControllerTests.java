@@ -49,6 +49,11 @@ public class MainControllerTests {
     private static final String LIVENESS_ENDPOINT = "/liveness";
 
     /**
+     * The health endpoint.
+     */
+    private static final String HEALTH_ENDPOINT = "/health";
+
+    /**
      * The version endpoint.
      */
     private static final String VERSION_ENDPOINT = "/version";
@@ -97,6 +102,18 @@ public class MainControllerTests {
         assert response.getStatusCode().is2xxSuccessful();
         assert (response.getBody() != null);
         //        assert (Boolean.TRUE.equals(response.getBody()));
+    }
+
+    /**
+     * Tests the isHealthy method.
+     */
+    @Test
+    void isHealthy() {
+        ResponseEntity<Integer[]> response =
+                restTemplate.getForEntity(API_VERSION + HEALTH_ENDPOINT, Integer[].class);
+        assert response.getStatusCode().is2xxSuccessful();
+        assert (response.getBody() != null);
+        // TODO: add more sophisticated tests here
     }
 
     /**

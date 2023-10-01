@@ -35,6 +35,9 @@ The current serviceable endpoints are as follows:
 **Liveness Check**
 - [localhost:8080/api/v1/liveness](http://localhost:8080/api/v1/liveness)
 
+**Health Check**
+- [localhost:8080/api/v1/health](http://localhost:8080/api/v1/health)
+
 **Version Check**
 - [localhost:8080/api/v1/version](http://localhost:8080/api/v1/version)
 

@@ -3,6 +3,10 @@ Unreleased
 
 *v0.0.14*
 
+**10/1/23**
+
+- [ADD Endpoint for Health Check](#47)
+
 **9/16/23**
 
 -[MODIFY Liveness Check to Return Integer](#45)
