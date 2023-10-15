@@ -1,6 +1,7 @@
 package com.hunteryavitz.blockchainapi.controllers;
 
 import com.hunteryavitz.blockchainapi.entities.Transaction;
+import com.hunteryavitz.blockchainapi.services.HealthMetricService;
 import com.hunteryavitz.blockchainapi.services.TransactionService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

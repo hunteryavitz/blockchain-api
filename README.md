@@ -38,6 +38,9 @@ The current serviceable endpoints are as follows:
 **Health Check**
 - [localhost:8080/api/v1/health](http://localhost:8080/api/v1/health)
 
+**Production Check**
+- [localhost:8080/api/v1/production](http://localhost:8080/api/v1/production)
+
 **Version Check**
 - [localhost:8080/api/v1/version](http://localhost:8080/api/v1/version)
 

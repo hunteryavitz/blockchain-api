@@ -1,6 +1,7 @@
 package com.hunteryavitz.blockchainapi.services;
 
 import com.hunteryavitz.blockchainapi.entities.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -17,18 +18,30 @@ public class TransactionService {
     /**
      * The blockchainService is an instance of the BlockchainService class.
      */
-    private static BlockchainService blockchainService;
+    @Autowired
+    BlockchainService blockchainService;
+
+    /**
+     * The transactionCount is the number of transactions for the purposes of measuring production.
+     */
+    @Autowired
+    HealthMetricService healthMetricService;
 
     /**
      * The constructor for the TransactionService class.
      */
     public void createInitialTransactionPool() {
 
-        if (blockchainService == null) {
-            blockchainService = new BlockchainService();
-        }
+//        if (blockchainService == null) {
+//            blockchainService = new BlockchainService();
+//        }
 
         transactionPool = new Transaction[10];
+
+//        if (healthMetricService == null) {
+//            healthMetricService = new HealthMetricService();
+//        }
+//        healthMetricService.resetTransactionCount();
     }
 
     /**
@@ -40,6 +53,7 @@ public class TransactionService {
         for (int i = 0; i < transactionPool.length; i++) {
             if (transactionPool[i] == null) {
                 transactionPool[i] = transaction;
+                healthMetricService.incrementTransactionCount();
                 if (i == (transactionPool.length - 1)) {
                     blockchainService.addBlockToBlockchain(transactionPool);
                     createInitialTransactionPool();
@@ -56,5 +70,15 @@ public class TransactionService {
      */
     public Transaction[] getTransactionPool() {
         return transactionPool;
+    }
+
+    /**
+     * The getTransactionCount method is responsible for getting the transaction count.
+     * @return The transaction count.
+     */
+    public int getTransactionCount() {
+        int transactions = healthMetricService.getTransactionCount();
+        healthMetricService.resetTransactionCount();
+        return transactions;
     }
 }

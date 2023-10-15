@@ -131,4 +131,9 @@ public class Utils {
 
         return updatedLiveness;
     }
+
+    public static Integer[] getCopntaminationSpectrum(Integer[] contaminationSpectrum) {
+        return null;
+
+    }
 }

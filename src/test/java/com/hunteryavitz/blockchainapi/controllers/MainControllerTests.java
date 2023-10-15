@@ -54,6 +54,11 @@ public class MainControllerTests {
     private static final String HEALTH_ENDPOINT = "/health";
 
     /**
+     * The production endpoint.
+     */
+    private static final String PRODUCTION_ENDPOINT = "/production";
+
+    /**
      * The version endpoint.
      */
     private static final String VERSION_ENDPOINT = "/version";
@@ -114,6 +119,17 @@ public class MainControllerTests {
         assert response.getStatusCode().is2xxSuccessful();
         assert (response.getBody() != null);
         // TODO: add more sophisticated tests here
+    }
+
+    /**
+     * Tests the isProduction method.
+     */
+    @Test
+    void production() {
+
+        ResponseEntity<Boolean> response = restTemplate.getForEntity(API_VERSION + PRODUCTION_ENDPOINT, Boolean.class);
+        assert response.getStatusCode().is2xxSuccessful();
+        assert (Boolean.TRUE.equals(response.getBody()));
     }
 
     /**
