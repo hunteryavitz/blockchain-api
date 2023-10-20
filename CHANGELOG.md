@@ -3,7 +3,7 @@ Unreleased
 
 *v0.0.14*
 
-**10/X/23**
+**10/19/23**
 
 - [ADD Endpoint for Health Check](#47)
 - [ADD Endpoint for Production Check](#48)

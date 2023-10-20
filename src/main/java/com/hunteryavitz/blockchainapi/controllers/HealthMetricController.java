@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * The health metric controller.
+ */
 @RestController
 @CrossOrigin
 @RequestMapping("/api/v1/healthMetric")
@@ -19,14 +22,6 @@ public class HealthMetricController {
      */
     @Autowired
     HealthMetricService healthMetricService;
-
-    /**
-     * The blockchain service.
-     * @param healthMetricService The health metric service.
-     */
-//    public HealthMetricController(HealthMetricService healthMetricService) {
-//        this.healthMetricService = healthMetricService;
-//    }
 
     /**
      * Updates the health metric.
@@ -47,5 +42,4 @@ public class HealthMetricController {
         SlidingWindow slidingWindow = healthMetricService.getProduction();
         return ResponseEntity.ok(slidingWindow.asJson());
     }
-
 }

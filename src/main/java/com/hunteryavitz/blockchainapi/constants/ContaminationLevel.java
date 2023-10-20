@@ -1,5 +1,8 @@
 package com.hunteryavitz.blockchainapi.constants;
 
+/**
+ * The ContaminationLevel enum represents the level of contamination of an exception.
+ */
 public enum ContaminationLevel {
 
     /**

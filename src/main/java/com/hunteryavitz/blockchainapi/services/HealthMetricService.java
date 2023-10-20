@@ -2,26 +2,36 @@ package com.hunteryavitz.blockchainapi.services;
 
 import com.hunteryavitz.blockchainapi.entities.healthmetric.BlockchainProduction;
 import com.hunteryavitz.blockchainapi.utils.structures.SlidingWindow;
+import lombok.Getter;
 import org.springframework.stereotype.Service;
 
+/**
+ * The HealthMetricService class.
+ */
 @Service
 public class HealthMetricService {
 
+
     /**
-     * The blockCount is the number of blocks for the purposes of measuring production.
+     * The block count is the number of blocks for the purposes of measuring production.
      */
+    @Getter
     private int blockCount;
 
     /**
      * The transactionCount is the number of transactions for the purposes of measuring production.
      */
-    private static int transactionCount;
+    @Getter
+    private int transactionCount;
 
     /**
      * The blockchain production.
      */
-    private BlockchainProduction blockchainProduction;
+    private final BlockchainProduction blockchainProduction;
 
+    /**
+     * The constructor.
+     */
     public HealthMetricService() {
         blockCount = 0;
         transactionCount = 0;
@@ -37,14 +47,6 @@ public class HealthMetricService {
     }
 
     /**
-     * Gets the block count.
-     * @return The block count.
-     */
-    public int getBlockCount() {
-        return blockCount;
-    }
-
-    /**
      * Resets the block count.
      */
     public void resetBlockCount() {
@@ -56,14 +58,6 @@ public class HealthMetricService {
      */
     public void incrementTransactionCount() {
         transactionCount++;
-    }
-
-    /**
-     * Gets the block count.
-     * @return The block count.
-     */
-    public int getTransactionCount() {
-        return transactionCount;
     }
 
     /**

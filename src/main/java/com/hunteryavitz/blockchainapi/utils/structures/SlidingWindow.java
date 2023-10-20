@@ -92,6 +92,10 @@ public class SlidingWindow {
         return result.toString();
     }
 
+    /**
+     * The asJson method returns a json string representation of the data structure.
+     * @return a json string representation of the data structure
+     */
     public String asJson() {
 
         HealthMetricProductionModel healthMetricProductionModel = new HealthMetricProductionModel();
@@ -103,7 +107,6 @@ public class SlidingWindow {
         }
         healthMetricProductionModel.setDataset1(data1);
         healthMetricProductionModel.setDataset2(data2);
-        // convert to json string
         return healthMetricProductionModel.asJson();
     }
 }
