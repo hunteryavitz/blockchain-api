@@ -72,7 +72,7 @@ public class MainController {
      */
     @GetMapping("/version")
     public ResponseEntity<String> getVersion() {
-        return ResponseEntity.ok("0.0.14");
+        return ResponseEntity.ok("0.0.15");
     }
 
     /**

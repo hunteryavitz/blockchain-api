@@ -2,7 +2,6 @@ package com.hunteryavitz.blockchainapi.controllers;
 
 import com.hunteryavitz.blockchainapi.services.HealthMetricService;
 import com.hunteryavitz.blockchainapi.utils.structures.SlidingWindow;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,8 +19,16 @@ public class HealthMetricController {
     /**
      * The health metric service.
      */
-    @Autowired
+//    @Autowired
     HealthMetricService healthMetricService;
+
+    /**
+     * The constructor for the health metric controller.
+     * @param healthMetricService The health metric service.
+     */
+    public HealthMetricController(HealthMetricService healthMetricService) {
+        this.healthMetricService = healthMetricService;
+    }
 
     /**
      * Updates the health metric.

@@ -137,7 +137,8 @@ public class Utils {
      * @param contaminationSpectrum The contamination spectrum of the node.
      * @return The contamination spectrum of the node.
      */
-    public static Integer[] getCopntaminationSpectrum(Integer[] contaminationSpectrum) {
+    public static Integer[] getContaminationSpectrum(Integer[] contaminationSpectrum) {
+        contaminationSpectrum[0] = 0;
         return null;
     }
 }

@@ -1,9 +1,9 @@
 package com.hunteryavitz.blockchainapi.controllers;
 
+import com.hunteryavitz.blockchainapi.entities.Block;
 import com.hunteryavitz.blockchainapi.entities.Transaction;
 import com.hunteryavitz.blockchainapi.services.TransactionService;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -23,12 +23,6 @@ public class TransactionControllerTests {
      */
     @Mock
     private TransactionService transactionService;
-
-    /**
-     * The TransactionController used to make requests to the API.
-     */
-    @InjectMocks
-    private TransactionController transactionController;
 
     /**
      * The RestTemplate used to make requests to the API.
@@ -68,27 +62,26 @@ public class TransactionControllerTests {
     /**
      * Tests the Transaction Service to add Block to Blockchain when full.
      */
-//    @Test
-//    void testAddsBlockOnFullTransactionPool() {
-//
-//        transactionService = new TransactionService();
-//        transactionService.createInitialTransactionPool();
-//        Transaction transaction = new Transaction(999, "right_now", "your mom", "CREATED");
-//
-//        int transactionPoolLength = transactionService.getTransactionPool().length;
-//
-//        for (int i = 0; i < transactionPoolLength; i++) {
-//            transactionService.submitTransaction(transaction);
-//        }
-//
-//        ResponseEntity<Block> response = restTemplate.getForEntity(
-//                API_VERSION + GET_BLOCK_BY_INDEX_ENDPOINT, Block.class);
-//
-//        assert response.getStatusCode().is2xxSuccessful();
-//
-//        Block block = response.getBody();
-//        System.out.println(block);
-//        assert block != null;
-//    }
+    @Test
+    void testAddsBlockOnFullTransactionPool() {
 
+        transactionService = new TransactionService();
+        transactionService.createInitialTransactionPool();
+        Transaction transaction = new Transaction(999, "right_now", "your mom", "CREATED");
+
+        int transactionPoolLength = transactionService.getTransactionPool().length;
+
+        for (int i = 0; i < transactionPoolLength; i++) {
+            transactionService.submitTransaction(transaction);
+        }
+
+        ResponseEntity<Block> response = restTemplate.getForEntity(
+                API_VERSION + GET_BLOCK_BY_INDEX_ENDPOINT, Block.class);
+
+        assert response.getStatusCode().is2xxSuccessful();
+
+        Block block = response.getBody();
+        System.out.println(block);
+        assert block != null;
+    }
 }

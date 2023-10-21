@@ -31,18 +31,18 @@ public class TransactionServiceTests {
         assert transactionService.getTransactionPool().length == 10;
     }
 
-//    /**
-//     * Tests the submitTransaction method.
-//     */
-//    @Test
-//    public void testSubmitTransaction() {
-//
-//        transactionService = new TransactionService();
-//        transactionService.createInitialTransactionPool();
-//
-//        Transaction transaction = new Transaction(999, "right_now", "your mom", "CREATED");
-//        transactionService.submitTransaction(transaction);
-//
-//        assert transactionService.getTransactionPool()[0].getId() == 999;
-//    }
+    /**
+     * Tests the submitTransaction method.
+     */
+    @Test
+    public void testSubmitTransaction() {
+
+        transactionService = new TransactionService();
+        transactionService.createInitialTransactionPool();
+
+        Transaction transaction = new Transaction(999, "right_now", "your mom", "CREATED");
+        transactionService.submitTransaction(transaction);
+
+        assert transactionService.getTransactionPool()[0].getId() == 999;
+    }
 }

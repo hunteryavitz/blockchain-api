@@ -43,7 +43,6 @@ public class HealthMetricService {
      */
     public void incrementBlockCount() {
         blockCount++;
-        System.out.println("blockcount: " + blockCount);
     }
 
     /**
