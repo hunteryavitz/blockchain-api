@@ -1,5 +1,5 @@
 # Blockchain API
-**Last Updated:** 7/8/23
+**Last Updated:** 10/20/23
 
 This is the API and backend code for the blockchain project.
 
@@ -26,41 +26,49 @@ mvn test
 mvn javadoc:javadoc
 ```
 
-### Endpoints
+## Endpoints
 The current serviceable endpoints are as follows:
 
-**Readiness Check**
-- [localhost:8080/api/v1/readiness](http://localhost:8080/api/v1/readiness)
+### Verify Blockchain
+GET http://localhost:8080/api/v1/blockchain/verifyBlockchain
 
-**Liveness Check**
-- [localhost:8080/api/v1/liveness](http://localhost:8080/api/v1/liveness)
+### Get Blockchain
+GET http://localhost:8080/api/v1/blockchain/getBlockchain
 
-**Health Check**
-- [localhost:8080/api/v1/health](http://localhost:8080/api/v1/health)
+### Get Block By Id
+GET http://localhost:8080/api/v1/blockchain/getBlockById
 
-**Production Check**
-- [localhost:8080/api/v1/production](http://localhost:8080/api/v1/production)
+### Add Block to Blockchain
+POST http://localhost:8080/api/v1/block/addBlockToBlockchain
 
-**Version Check**
-- [localhost:8080/api/v1/version](http://localhost:8080/api/v1/version)
+### Update Production
+GET http://localhost:8080/api/v1/healthMetric/updateProduction
 
-**Verify Blockchain**
-- [localhost:8080/api/v1/verifyBlockchain](http://localhost:8080/api/v1/verifyBlockchain)
+### Get Production
+GET http://localhost:8080/api/v1/healthMetric/getProductionHealth
 
-**Add Block to Blockchain**
-- [localhost:8080/api/v1/block/addBlockToBlockchain](http://localhost:8080/api/v1/block/addBlockToBlockchain)
+### Get Readiness
+GET http://localhost:8080/api/v1/readiness
 
-**Verify Blockchain**
-- [localhost:8080/api/v1/blockchain/verifyBlockchain](http://localhost:8080/api/v1/blockchain/verifyBlockchain)
+### Get Liveness
+GET http://localhost:8080/api/v1/liveness
 
-**Get Blockchain**
-- [localhost:8080/api/v1/blockchain/getBlockchain](http://localhost:8080/api/v1/blockchain/getBlockchain)
+### Get Health
+GET http://localhost:8080/api/v1/health
 
-**Get Block by ID**
-- [localhost:8080/api/v1/blockchain/getBlockById?id={id}](http://localhost:8080/api/v1/blockchain/getBlockById?id=0)
+### Get Version
+GET http://localhost:8080/api/v1/version
 
-**Add Transaction**
-- [localhost:8080/api/v1/transaction/addTransaction](http://localhost:8080/api/v1/transaction/addTransaction)
+### Verify Blockchain
+GET http://localhost:8080/api/v1/verifyBlockchain
+
+### Submit Transaction
+POST http://localhost:8080/api/v1/transaction/submitTransaction
+
+### Get Transaction Pool
+GET /api/v1/transaction/getTransactionPool
+
+---
 
 ### Summary
 The aim of this API is to provide service to the client-side.
