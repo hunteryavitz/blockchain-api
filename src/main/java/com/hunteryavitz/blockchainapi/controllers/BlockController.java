@@ -33,7 +33,7 @@ public class BlockController {
 
     /**
      * The addBlockToBlockchain method is responsible for adding a block to the blockchain.
-     * @return A ResponseEntity containing a boolean indicating whether or not the block was added to the blockchain.
+     * @return A ResponseEntity containing a boolean indicating whether the block was added to the blockchain.
      */
     @PostMapping("/addBlockToBlockchain")
     public ResponseEntity<Boolean> addBlockToBlockchain() {

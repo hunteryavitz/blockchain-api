@@ -4,7 +4,6 @@ import com.hunteryavitz.blockchainapi.entities.Block;
 import com.hunteryavitz.blockchainapi.entities.Transaction;
 import com.hunteryavitz.blockchainapi.services.TransactionService;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -24,12 +23,6 @@ public class TransactionControllerTests {
      */
     @Mock
     private TransactionService transactionService;
-
-    /**
-     * The TransactionController used to make requests to the API.
-     */
-    @InjectMocks
-    private TransactionController transactionController;
 
     /**
      * The RestTemplate used to make requests to the API.
@@ -91,5 +84,4 @@ public class TransactionControllerTests {
         System.out.println(block);
         assert block != null;
     }
-
 }

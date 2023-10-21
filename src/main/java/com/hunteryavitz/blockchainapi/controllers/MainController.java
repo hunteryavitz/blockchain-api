@@ -57,12 +57,22 @@ public class MainController {
     }
 
     /**
+     * Returns the health metrics of the blockchain.
+     * @return 200 response with the health metrics of the blockchain
+     */
+    @GetMapping("/health")
+    public ResponseEntity<Integer[]> isHealthy() {
+        Integer[] healthMetrics = blockchainService.getHealthMetrics();
+        return ResponseEntity.ok(healthMetrics);
+    }
+
+    /**
      * Returns the version of the API.
      * @return 200 response with the version of the API
      */
     @GetMapping("/version")
     public ResponseEntity<String> getVersion() {
-        return ResponseEntity.ok("0.0.14");
+        return ResponseEntity.ok("0.0.15");
     }
 
     /**

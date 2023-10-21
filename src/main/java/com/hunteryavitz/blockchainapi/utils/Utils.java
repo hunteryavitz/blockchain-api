@@ -131,4 +131,14 @@ public class Utils {
 
         return updatedLiveness;
     }
+
+    /**
+     * The getContaminationSpectrum method returns the contamination spectrum of a node.
+     * @param contaminationSpectrum The contamination spectrum of the node.
+     * @return The contamination spectrum of the node.
+     */
+    public static Integer[] getContaminationSpectrum(Integer[] contaminationSpectrum) {
+        contaminationSpectrum[0] = 0;
+        return null;
+    }
 }

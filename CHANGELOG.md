@@ -1,7 +1,12 @@
 # Blockchain API
 Unreleased
 
-*v0.0.14*
+*v0.0.15*
+
+**10/20/23**
+
+- [ADD Endpoint for Health Check](#47)
+- [ADD Endpoint for Production Check](#48)
 
 **9/16/23**
 

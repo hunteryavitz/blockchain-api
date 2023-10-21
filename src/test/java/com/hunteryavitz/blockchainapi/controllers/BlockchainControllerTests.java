@@ -79,7 +79,7 @@ public class BlockchainControllerTests {
         ResponseEntity<Block[]> response = blockchainController.getBlockchain();
 
         // Assert
-        assertEquals(200, response.getStatusCodeValue()); // checks if the status code is 200 OK
+        assertEquals(200, response.getStatusCode().value()); // checks if the status code is 200 OK
         assertArrayEquals(mockBlockchain, response.getBody()); // checks if the returned blockchain matches the mock
     }
 
@@ -96,7 +96,7 @@ public class BlockchainControllerTests {
         ResponseEntity<Block> response = blockchainController.getBlockById(0);
 
         // Assert
-        assertEquals(200, response.getStatusCodeValue()); // checks if the status code is 200 OK
+        assertEquals(200, response.getStatusCode().value()); // checks if the status code is 200 OK
         assertEquals(mockBlock, response.getBody()); // checks if the returned block matches the mock
     }
 }
