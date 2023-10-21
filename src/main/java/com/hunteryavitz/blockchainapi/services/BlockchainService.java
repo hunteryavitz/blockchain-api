@@ -3,6 +3,7 @@ package com.hunteryavitz.blockchainapi.services;
 import com.hunteryavitz.blockchainapi.entities.Block;
 import com.hunteryavitz.blockchainapi.entities.Transaction;
 import com.hunteryavitz.blockchainapi.utils.Utils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.security.NoSuchAlgorithmException;
@@ -17,14 +18,8 @@ public class BlockchainService {
     /**
      * The health metric service.
      */
-    HealthMetricService healthMetricService;
-
-    /**
-     * The constructor for the BlockchainService class.
-     */
-    public BlockchainService() {
-        healthMetricService = new HealthMetricService();
-    }
+    @Autowired
+    private static HealthMetricService healthMetricService;
 
     /**
      * The blockchain is an array of blocks.
@@ -131,6 +126,7 @@ public class BlockchainService {
 
         blockchain[nextBlockIndex] = block;
         healthMetricService.incrementBlockCount();
+        System.out.println("incremented blockcount from blockchain service");
     }
 
     /**
@@ -189,7 +185,7 @@ public class BlockchainService {
         Integer[] healthMetrics = Utils.getContaminationSpectrum(contaminationSpectrum);
         Arrays.fill(contaminationSpectrum, 0);
 
-         return healthMetrics;
+        return healthMetrics;
     }
 
     /**
@@ -197,5 +193,15 @@ public class BlockchainService {
      */
     private void incrementBlockCount() {
         contaminationSpectrum[0]++;
+    }
+
+    /**
+     * The getBlockCount method is responsible for returning the block count.
+     * @return The block count.
+     */
+    public int getBlockCount() {
+        int blocks = healthMetricService.getBlockCount();
+        healthMetricService.resetBlockCount();
+        return blocks;
     }
 }
