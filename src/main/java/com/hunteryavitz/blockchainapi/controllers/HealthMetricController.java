@@ -19,11 +19,10 @@ public class HealthMetricController {
     /**
      * The health metric service.
      */
-//    @Autowired
-    HealthMetricService healthMetricService;
+    private final HealthMetricService healthMetricService;
 
     /**
-     * The constructor for the health metric controller.
+     * The blockchain service.
      * @param healthMetricService The health metric service.
      */
     public HealthMetricController(HealthMetricService healthMetricService) {

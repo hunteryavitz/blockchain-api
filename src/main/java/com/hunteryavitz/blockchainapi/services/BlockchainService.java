@@ -17,14 +17,7 @@ public class BlockchainService {
     /**
      * The health metric service.
      */
-    HealthMetricService healthMetricService;
-
-    /**
-     * The constructor for the BlockchainService class.
-     */
-    public BlockchainService() {
-        healthMetricService = new HealthMetricService();
-    }
+    private static HealthMetricService healthMetricService;
 
     /**
      * The blockchain is an array of blocks.
@@ -70,7 +63,6 @@ public class BlockchainService {
 
         blockchain[0] = genesisBlock;
         healthMetricService.incrementBlockCount();
-
     }
 
     /**
@@ -89,7 +81,6 @@ public class BlockchainService {
         int nextBlockIndex = getNextBlockIndexFromBlockchain();
 
         Block previousBlock = blockchain[nextBlockIndex - 1];
-
         Block block;
 
         try {
@@ -117,7 +108,6 @@ public class BlockchainService {
         int nextBlockIndex = getNextBlockIndexFromBlockchain();
 
         Block previousBlock = blockchain[nextBlockIndex - 1];
-
         Block block;
 
         try {
@@ -189,7 +179,7 @@ public class BlockchainService {
         Integer[] healthMetrics = Utils.getContaminationSpectrum(contaminationSpectrum);
         Arrays.fill(contaminationSpectrum, 0);
 
-         return healthMetrics;
+        return healthMetrics;
     }
 
     /**

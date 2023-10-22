@@ -16,13 +16,13 @@ public class HealthMetricService {
      * The block count is the number of blocks for the purposes of measuring production.
      */
     @Getter
-    private int blockCount;
+    private static int blockCount;
 
     /**
      * The transactionCount is the number of transactions for the purposes of measuring production.
      */
     @Getter
-    private int transactionCount;
+    private static int transactionCount;
 
     /**
      * The blockchain production.
