@@ -58,7 +58,6 @@ public class BlockchainController {
      */
     @GetMapping("/getBlockById")
     public ResponseEntity<Block> getBlockById(@RequestParam int id) {
-
         Block block = blockchainService.getBlockById(id);
         return ResponseEntity.ok(block);
     }

@@ -15,13 +15,13 @@ public class HealthMetricService {
     /**
      * The block count is the number of blocks for the purposes of measuring production.
      */
-//    @Getter
+    @Getter
     private static int blockCount;
 
     /**
      * The transactionCount is the number of transactions for the purposes of measuring production.
      */
-//    @Getter
+    @Getter
     private static int transactionCount;
 
     /**
@@ -46,14 +46,6 @@ public class HealthMetricService {
     }
 
     /**
-     * Gets the block count.
-     * @return The block count.
-     */
-    public int getBlockCount() {
-        return blockCount;
-    }
-
-    /**
      * Resets the block count.
      */
     public void resetBlockCount() {
@@ -65,14 +57,6 @@ public class HealthMetricService {
      */
     public void incrementTransactionCount() {
         transactionCount++;
-    }
-
-    /**
-     * Gets the transaction count.
-     * @return The transaction count.
-     */
-    public int getTransactionCount() {
-        return transactionCount;
     }
 
     /**

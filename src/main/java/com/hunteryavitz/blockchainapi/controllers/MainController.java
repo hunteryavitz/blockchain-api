@@ -52,7 +52,6 @@ public class MainController {
      */
     @GetMapping("/liveness")
     public ResponseEntity<Integer> isAlive() {
-
         return ResponseEntity.ok(blockchainService.isAlive());
     }
 

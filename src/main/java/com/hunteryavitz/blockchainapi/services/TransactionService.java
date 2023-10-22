@@ -30,11 +30,9 @@ public class TransactionService {
      * The constructor for the TransactionService class.
      */
     public void createInitialTransactionPool() {
-
         if (blockchainService == null) {
             blockchainService = new BlockchainService();
         }
-
         transactionPool = new Transaction[10];
     }
 
@@ -48,13 +46,11 @@ public class TransactionService {
         if (healthMetricService == null) {
             healthMetricService = new HealthMetricService();
         }
-//        healthMetricService.resetBlockCount();
 
         // NOTE: Here to pass the unit tests
         if (blockchainService == null) {
             blockchainService = new BlockchainService();
         }
-//        blockchainService.createInitialBlockchain();
 
         for (int i = 0; i < transactionPool.length; i++) {
             if (transactionPool[i] == null) {

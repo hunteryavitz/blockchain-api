@@ -1,5 +1,6 @@
 package com.hunteryavitz.blockchainapi.entities.healthmetric;
 
+import com.google.gson.Gson;
 import lombok.Data;
 
 /**
@@ -40,7 +41,15 @@ public class HealthMetricProductionModel {
      * The Data class is a model for the data of the production health metric.
      */
     static class Data {
+
+        /**
+         * The data for the transactions health metric.
+         */
         private int[] dataset1;
+
+        /**
+         * The data for the blocks health metric.
+         */
         private int[] dataset2;
 
         /**
@@ -65,29 +74,7 @@ public class HealthMetricProductionModel {
      * @return the data as a JSON string
      */
     public String asJson() {
-        return "{" +
-                "\"data\": {" +
-                "\"dataset1\": " + asJsonArray(data.dataset1) + "," +
-                "\"dataset2\": " + asJsonArray(data.dataset2) +
-                "}" +
-                "}";
-    }
-
-    /**
-     * Returns the data as a JSON array.
-     * @param dataset1 the data to be converted to a JSON array
-     * @return the data as a JSON array
-     */
-    private String asJsonArray(int[] dataset1) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("[");
-        for (int i = 0; i < dataset1.length; i++) {
-            sb.append(dataset1[i]);
-            if (i != dataset1.length - 1) {
-                sb.append(",");
-            }
-        }
-        sb.append("]");
-        return sb.toString();
+        Gson gson = new Gson();
+        return gson.toJson(this);
     }
 }

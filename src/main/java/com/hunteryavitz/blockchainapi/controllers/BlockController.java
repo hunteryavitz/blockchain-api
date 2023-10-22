@@ -43,6 +43,7 @@ public class BlockController {
         } catch (Exception e) {
             return ResponseEntity.ok(false);
         }
+
         return ResponseEntity.ok(true);
     }
 }
