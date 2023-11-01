@@ -1,6 +1,8 @@
 package com.hunteryavitz.blockchainapi.controllers;
 
+import com.hunteryavitz.blockchainapi.constants.ContaminationLevel;
 import com.hunteryavitz.blockchainapi.services.BlockchainService;
+import com.hunteryavitz.blockchainapi.services.HealthMetricService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,13 +23,28 @@ public class BlockController {
     private final BlockchainService blockchainService;
 
     /**
+     * The health metric service.
+     */
+    private final HealthMetricService healthMetricService;
+
+    /**
      * The BlockController constructor is responsible for initializing the
      * @param blockchainService The blockchain service.
+     * @param healthMetricService The health metric service.
      */
-    public BlockController(BlockchainService blockchainService) {
+    public BlockController(BlockchainService blockchainService, HealthMetricService healthMetricService) {
         this.blockchainService = blockchainService;
-        if (blockchainService.getBlockchain() == null) {
-            blockchainService.createInitialBlockchain();
+        this.healthMetricService = healthMetricService;
+        try {
+            if (blockchainService.getBlockchain() == null) {
+                blockchainService.createInitialBlockchain();
+            }
+            if (healthMetricService.getProduction() == null) {
+                healthMetricService.createHealthMetricService();
+            }
+        } catch (Exception exception) {
+            assert healthMetricService != null;
+            healthMetricService.updateHealth(ContaminationLevel.CRITICAL, exception);
         }
     }
 
@@ -37,10 +54,10 @@ public class BlockController {
      */
     @PostMapping("/addBlockToBlockchain")
     public ResponseEntity<Boolean> addBlockToBlockchain() {
-
         try {
             blockchainService.addBlockToBlockchain();
-        } catch (Exception e) {
+        } catch (Exception exception) {
+            healthMetricService.updateHealth(ContaminationLevel.WARNING, exception);
             return ResponseEntity.ok(false);
         }
 

@@ -1,5 +1,6 @@
 package com.hunteryavitz.blockchainapi.controllers;
 
+import com.hunteryavitz.blockchainapi.constants.ContaminationLevel;
 import com.hunteryavitz.blockchainapi.services.HealthMetricService;
 import com.hunteryavitz.blockchainapi.utils.structures.SlidingWindow;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +28,15 @@ public class HealthMetricController {
      */
     public HealthMetricController(HealthMetricService healthMetricService) {
         this.healthMetricService = healthMetricService;
+
+        try {
+            if (healthMetricService.getProduction() == null) {
+                healthMetricService.createHealthMetricService();
+            }
+        } catch (Exception exception) {
+            assert healthMetricService != null;
+            healthMetricService.updateHealth(ContaminationLevel.CRITICAL, exception);
+        }
     }
 
     /**
@@ -35,8 +45,14 @@ public class HealthMetricController {
      */
     @GetMapping("/updateProduction")
     public ResponseEntity<Boolean> updateProduction() {
-        healthMetricService.updateBlockchainProduction();
-        return ResponseEntity.ok(true);
+        try {
+            healthMetricService.updateBlockchainProduction();
+            return ResponseEntity.ok(true);
+        } catch (Exception exception) {
+            healthMetricService.updateHealth(ContaminationLevel.INFO, exception);
+        }
+
+        return ResponseEntity.ok(false);
     }
 
     /**
@@ -44,8 +60,29 @@ public class HealthMetricController {
      * @return The production health.
      */
     @GetMapping("/getProductionHealth")
-    public ResponseEntity<String> addBlockToBlockchain() {
-        SlidingWindow slidingWindow = healthMetricService.getProduction();
-        return ResponseEntity.ok(slidingWindow.asJson());
+    public ResponseEntity<String> getProductionHealth() {
+        try {
+            SlidingWindow slidingWindow = healthMetricService.getProduction();
+            return ResponseEntity.ok(slidingWindow.asJson());
+        } catch (Exception exception) {
+            healthMetricService.updateHealth(ContaminationLevel.INFO, exception);
+        }
+
+        return ResponseEntity.ok("");
+    }
+
+    /**
+     * Gets the production health.
+     * @return The production health.
+     */
+    @GetMapping("/health")
+    public ResponseEntity<Integer[]> getHealth() {
+        try {
+            return ResponseEntity.ok(HealthMetricService.getHealth());
+        } catch (Exception exception) {
+            healthMetricService.updateHealth(ContaminationLevel.INFO, exception);
+        }
+
+        return ResponseEntity.ok(new Integer[]{});
     }
 }

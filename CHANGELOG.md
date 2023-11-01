@@ -3,6 +3,10 @@ Unreleased
 
 *v0.0.15*
 
+**10/31/23**
+
+- [ADD Endpoint for Health Check](#47)
+
 **10/21/23**
 
 -[Fix Failing Performance Metrics](#50)

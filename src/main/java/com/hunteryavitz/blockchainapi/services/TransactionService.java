@@ -1,6 +1,7 @@
 package com.hunteryavitz.blockchainapi.services;
 
 import com.hunteryavitz.blockchainapi.entities.Transaction;
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,7 @@ public class TransactionService {
     /**
      * The transactionPool is an array of transactions.
      */
+    @Getter
     private static Transaction[] transactionPool;
 
     /**
@@ -64,13 +66,5 @@ public class TransactionService {
                 break;
             }
         }
-    }
-
-    /**
-     * The getNextBlockIndexFromBlockchain method is responsible for getting the next block index from the blockchain.
-     * @return The next block index from the blockchain.
-     */
-    public Transaction[] getTransactionPool() {
-        return transactionPool;
     }
 }

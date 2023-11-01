@@ -57,8 +57,6 @@ public class BlockchainControllerTests {
         blockchainService = new BlockchainService();
         blockchainService.createInitialBlockchain();
 
-        blockchainService.createInitialBlockchain();
-
         ResponseEntity<Boolean> response = restTemplate.getForEntity(
                 API_VERSION + VERIFY_BLOCKCHAIN_ENDPOINT, Boolean.class);
 

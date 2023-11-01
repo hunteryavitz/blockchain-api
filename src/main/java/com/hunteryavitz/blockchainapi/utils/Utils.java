@@ -2,7 +2,10 @@ package com.hunteryavitz.blockchainapi.utils;
 
 import com.hunteryavitz.blockchainapi.entities.Block;
 
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -133,12 +136,17 @@ public class Utils {
     }
 
     /**
-     * The getContaminationSpectrum method returns the contamination spectrum of a node.
-     * @param contaminationSpectrum The contamination spectrum of the node.
-     * @return The contamination spectrum of the node.
+     * The readFileToString method reads a file to a string.
+     * @param filePath The path of the file to read.
+     * @return The string representation of the file.
      */
-    public static Integer[] getContaminationSpectrum(Integer[] contaminationSpectrum) {
-        contaminationSpectrum[0] = 0;
-        return null;
+    public static String readFileToString(String filePath) {
+        try {
+            byte[] bytes = Files.readAllBytes(Paths.get(filePath));
+            return new String(bytes);
+        } catch (IOException e) {
+            System.out.println("shit");
+            return "";
+        }
     }
 }
