@@ -1,5 +1,5 @@
 # Blockchain API
-**Last Updated:** 10/20/23
+**Last Updated:** 10/31/23
 
 This is the API and backend code for the blockchain project.
 
@@ -47,14 +47,14 @@ GET http://localhost:8080/api/v1/healthMetric/updateProduction
 ### Get Production
 GET http://localhost:8080/api/v1/healthMetric/getProductionHealth
 
+### Get Health
+GET http://localhost:8080/api/v1/healthMetric/health
+
 ### Get Readiness
 GET http://localhost:8080/api/v1/readiness
 
 ### Get Liveness
 GET http://localhost:8080/api/v1/liveness
-
-### Get Health
-GET http://localhost:8080/api/v1/health
 
 ### Get Version
 GET http://localhost:8080/api/v1/version

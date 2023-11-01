@@ -7,6 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -42,9 +43,12 @@ public class UtilsTests {
 
         BlockchainService blockchainService = new BlockchainService();
 
+        assert blockchainService != null;
+
         blockchainService.addBlockToBlockchain();
         Block[] blockchain = blockchainService.getBlockchain();
 
+        System.out.println(Arrays.toString(blockchain));
         boolean isValid = Utils.verifyBlockchain(blockchain);
 
         assertTrue(isValid);

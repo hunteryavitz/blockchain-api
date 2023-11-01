@@ -1,6 +1,8 @@
 package com.hunteryavitz.blockchainapi.controllers;
 
+import com.hunteryavitz.blockchainapi.constants.ContaminationLevel;
 import com.hunteryavitz.blockchainapi.entities.Transaction;
+import com.hunteryavitz.blockchainapi.services.HealthMetricService;
 import com.hunteryavitz.blockchainapi.services.TransactionService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,13 +21,29 @@ public class TransactionController {
     private final TransactionService transactionService;
 
     /**
+     * The health metric service.
+     */
+    private final HealthMetricService healthMetricService;
+
+    /**
      * The constructor for the TransactionController class.
      * @param transactionService The TransactionService class is responsible for managing transactions.
+     * @param healthMetricService The health metric service.
      */
-    public TransactionController(TransactionService transactionService) {
+    public TransactionController(TransactionService transactionService, HealthMetricService healthMetricService) {
         this.transactionService = transactionService;
-        if (transactionService.getTransactionPool() == null) {
-            transactionService.createInitialTransactionPool();
+        this.healthMetricService = healthMetricService;
+
+        try {
+            if (transactionService.getTransactionPool() == null) {
+                transactionService.createInitialTransactionPool();
+            }
+            if (healthMetricService.getProduction() == null) {
+                healthMetricService.createHealthMetricService();
+            }
+        } catch (Exception exception) {
+            assert healthMetricService != null;
+            healthMetricService.updateHealth(ContaminationLevel.CRITICAL, exception);
         }
     }
 
@@ -36,8 +54,14 @@ public class TransactionController {
      */
     @PostMapping(value = "/submitTransaction", consumes = "application/json", produces = "application/json")
     public ResponseEntity<Boolean> submitTransaction(@RequestBody Transaction transaction) {
-        transactionService.submitTransaction(transaction);
-        return ResponseEntity.ok(true);
+        try {
+            transactionService.submitTransaction(transaction);
+            return ResponseEntity.ok(true);
+        } catch (Exception exception) {
+            healthMetricService.updateHealth(ContaminationLevel.WARNING, exception);
+        }
+
+        return ResponseEntity.ok(false);
     }
 
     /**
@@ -46,6 +70,12 @@ public class TransactionController {
      */
     @GetMapping(value = "/getTransactionPool", produces = "application/json")
     public ResponseEntity<Transaction[]> getTransactionPool() {
-        return ResponseEntity.ok(transactionService.getTransactionPool());
+        try {
+            return ResponseEntity.ok(transactionService.getTransactionPool());
+        } catch (Exception exception) {
+            healthMetricService.updateHealth(ContaminationLevel.WARNING, exception);
+        }
+
+        return ResponseEntity.ok(new Transaction[]{});
     }
 }

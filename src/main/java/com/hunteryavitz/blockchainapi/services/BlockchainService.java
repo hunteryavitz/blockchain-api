@@ -30,26 +30,19 @@ public class BlockchainService {
     private static Boolean[] liveness;
 
     /**
-     * The blockCount is the number of blocks for the purposes of measuring production.
-     */
-    private static Integer[] contaminationSpectrum;
-
-    /**
      * The constructor for the BlockchainService class.
      */
     public void createInitialBlockchain() {
 
         if (healthMetricService == null) {
             healthMetricService = new HealthMetricService();
+            healthMetricService.createHealthMetricService();
         }
 
         liveness = new Boolean[100];
 
         blockchain = new Block[100];
         Block genesisBlock;
-
-        contaminationSpectrum = new Integer[5];
-        Arrays.fill(contaminationSpectrum, 0);
 
         healthMetricService.resetBlockCount();
 
@@ -89,7 +82,6 @@ public class BlockchainService {
                     Utils.calculateHash(nextBlockIndex, previousBlock.getHash(),
                             System.currentTimeMillis(), "Block " + nextBlockIndex));
 
-            incrementBlockCount();
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException(e);
         }
@@ -161,31 +153,5 @@ public class BlockchainService {
      */
     public void checkReadiness() {
         liveness = Utils.updateLiveness(liveness);
-    }
-
-    /**
-     * The getHealthMetrics method is responsible for returning the health metrics of the blockchain.
-     * @return The health metrics of the blockchain.
-     */
-    public Integer[] getHealthMetrics() {
-
-        // mock health metrics
-        contaminationSpectrum[0] = (int) (Math.random() * 100 + 1);
-        contaminationSpectrum[1] = (int) (Math.random() * 100 + 1);
-        contaminationSpectrum[2] = (int) (Math.random() * 100 + 1);
-        contaminationSpectrum[3] = (int) (Math.random() * 100 + 1);
-        contaminationSpectrum[4] = (int) (Math.random() * 100 + 1);
-
-        Integer[] healthMetrics = Utils.getContaminationSpectrum(contaminationSpectrum);
-        Arrays.fill(contaminationSpectrum, 0);
-
-        return healthMetrics;
-    }
-
-    /**
-     * The incrementBlockCount method is responsible for incrementing the block count.
-     */
-    private void incrementBlockCount() {
-        contaminationSpectrum[0]++;
     }
 }

@@ -1,7 +1,10 @@
 package com.hunteryavitz.blockchainapi.controllers;
 
+import com.hunteryavitz.blockchainapi.constants.ContaminationLevel;
 import com.hunteryavitz.blockchainapi.entities.Block;
 import com.hunteryavitz.blockchainapi.services.BlockchainService;
+import com.hunteryavitz.blockchainapi.services.HealthMetricService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,13 +22,25 @@ public class BlockchainController {
     private final BlockchainService blockchainService;
 
     /**
+     * The health metric service.
+     */
+    private final HealthMetricService healthMetricService;
+
+    /**
      * The constructor for the BlockchainController class.
      * @param blockchainService The service for the blockchain endpoints.
+     * @param healthMetricService The health metric service.
      */
-    public BlockchainController(BlockchainService blockchainService) {
+    public BlockchainController(BlockchainService blockchainService, HealthMetricService healthMetricService) {
         this.blockchainService = blockchainService;
-        if (blockchainService.getBlockchain() == null) {
-            blockchainService.createInitialBlockchain();
+        this.healthMetricService = healthMetricService;
+
+        try {
+            if (blockchainService.getBlockchain() == null) {
+                blockchainService.createInitialBlockchain();
+            }
+        } catch (Exception exception) {
+            healthMetricService.updateHealth(ContaminationLevel.CRITICAL, exception);
         }
     }
 
@@ -35,8 +50,12 @@ public class BlockchainController {
      */
     @GetMapping("/verifyBlockchain")
     public ResponseEntity<Boolean> verifyBlockchain() {
-        if (blockchainService.verifyBlockchain()) {
-            return ResponseEntity.ok(true);
+        try {
+            if (blockchainService.verifyBlockchain()) {
+                return ResponseEntity.ok(true);
+            }
+        } catch (Exception exception) {
+            healthMetricService.updateHealth(ContaminationLevel.CRITICAL, exception);
         }
         return ResponseEntity.ok(false);
     }
@@ -47,8 +66,13 @@ public class BlockchainController {
      */
     @GetMapping("/getBlockchain")
     public ResponseEntity<Block[]> getBlockchain() {
-        Block[] blockchain = blockchainService.getBlockchain();
-        return ResponseEntity.ok(blockchain);
+        try {
+            Block[] blockchain = blockchainService.getBlockchain();
+            return ResponseEntity.ok(blockchain);
+        } catch (Exception exception) {
+            healthMetricService.updateHealth(ContaminationLevel.WARNING, exception);
+        }
+        return ResponseEntity.ok(null);
     }
 
     /**
@@ -58,7 +82,12 @@ public class BlockchainController {
      */
     @GetMapping("/getBlockById")
     public ResponseEntity<Block> getBlockById(@RequestParam int id) {
-        Block block = blockchainService.getBlockById(id);
-        return ResponseEntity.ok(block);
+        try {
+            Block block = blockchainService.getBlockById(id);
+            return ResponseEntity.ok(block);
+        } catch (Exception exception) {
+            healthMetricService.updateHealth(ContaminationLevel.WARNING, exception);
+        }
+        return ResponseEntity.ok(null);
     }
 }

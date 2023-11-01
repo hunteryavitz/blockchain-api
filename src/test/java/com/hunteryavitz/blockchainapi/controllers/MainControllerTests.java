@@ -104,24 +104,13 @@ public class MainControllerTests {
     }
 
     /**
-     * Tests the isHealthy method.
-     */
-    @Test
-    void isHealthy() {
-        ResponseEntity<Integer[]> response =
-                restTemplate.getForEntity(API_VERSION + HEALTH_ENDPOINT, Integer[].class);
-        assert response.getStatusCode().is2xxSuccessful();
-        // TODO: add more sophisticated tests here
-    }
-
-    /**
      * Tests the getVersion method.
      */
     @Test
     void testGetVersion() {
         ResponseEntity<String> response = restTemplate.getForEntity(API_VERSION + VERSION_ENDPOINT, String.class);
         assert response.getStatusCode().is2xxSuccessful();
-        assert ("0.0.15".equals(response.getBody()));
+        assert ("0.0.16".equals(response.getBody()));
     }
 
     /**
