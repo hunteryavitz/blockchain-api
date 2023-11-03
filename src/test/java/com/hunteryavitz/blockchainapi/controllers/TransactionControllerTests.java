@@ -50,11 +50,16 @@ public class TransactionControllerTests {
      */
     @Test
     void testSubmitTransaction() {
+
+        transactionService = new TransactionService();
+        transactionService.createInitialTransactionPool();
+
         Transaction transaction = new Transaction(999, "right_now", "your mom", "CREATED");
 
         ResponseEntity<Boolean> response = restTemplate.postForEntity(
                 API_VERSION + SUBMIT_TRANSACTION_ENDPOINT, transaction, Boolean.class);
 
+        System.out.println(response.getBody());
         assert response.getStatusCode().is2xxSuccessful();
         assert (Boolean.TRUE.equals(response.getBody()));
     }
@@ -69,7 +74,7 @@ public class TransactionControllerTests {
         transactionService.createInitialTransactionPool();
         Transaction transaction = new Transaction(999, "right_now", "your mom", "CREATED");
 
-        int transactionPoolLength = transactionService.getTransactionPool().length;
+        int transactionPoolLength = TransactionService.getTransactionPool().length;
 
         for (int i = 0; i < transactionPoolLength; i++) {
             transactionService.submitTransaction(transaction);

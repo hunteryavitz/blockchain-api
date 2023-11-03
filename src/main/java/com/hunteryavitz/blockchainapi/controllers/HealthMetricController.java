@@ -1,6 +1,7 @@
 package com.hunteryavitz.blockchainapi.controllers;
 
 import com.hunteryavitz.blockchainapi.constants.ContaminationLevel;
+import com.hunteryavitz.blockchainapi.entities.healthmetric.NodeNetworkStatus;
 import com.hunteryavitz.blockchainapi.services.HealthMetricService;
 import com.hunteryavitz.blockchainapi.utils.structures.SlidingWindow;
 import org.springframework.http.ResponseEntity;
@@ -84,5 +85,20 @@ public class HealthMetricController {
         }
 
         return ResponseEntity.ok(new Integer[]{});
+    }
+
+    /**
+     * Gets the node network status.
+     * @return The node network status.
+     */
+    @GetMapping("/getNodeNetworkStatus")
+    public ResponseEntity<NodeNetworkStatus> getNodeNetworkStatus() {
+        try {
+            return ResponseEntity.ok(new NodeNetworkStatus());
+        } catch (Exception exception) {
+            healthMetricService.updateHealth(ContaminationLevel.INFO, exception);
+        }
+
+        return ResponseEntity.ok(new NodeNetworkStatus());
     }
 }

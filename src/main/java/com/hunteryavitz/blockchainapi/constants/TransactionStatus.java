@@ -3,7 +3,7 @@ package com.hunteryavitz.blockchainapi.constants;
 /**
  * The Status enum represents the status of an order.
  */
-public enum Status {
+public enum TransactionStatus {
     /**
      * The order has been created.
      */

@@ -35,7 +35,7 @@ public class TransactionController {
         this.healthMetricService = healthMetricService;
 
         try {
-            if (transactionService.getTransactionPool() == null) {
+            if (TransactionService.getTransactionPool() == null) {
                 transactionService.createInitialTransactionPool();
             }
             if (healthMetricService.getProduction() == null) {
@@ -71,7 +71,7 @@ public class TransactionController {
     @GetMapping(value = "/getTransactionPool", produces = "application/json")
     public ResponseEntity<Transaction[]> getTransactionPool() {
         try {
-            return ResponseEntity.ok(transactionService.getTransactionPool());
+            return ResponseEntity.ok(TransactionService.getTransactionPool());
         } catch (Exception exception) {
             healthMetricService.updateHealth(ContaminationLevel.WARNING, exception);
         }
