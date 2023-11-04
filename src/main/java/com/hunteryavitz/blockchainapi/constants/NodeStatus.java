@@ -18,5 +18,15 @@ public enum NodeStatus {
     /**
      * The node is unresponsive.
      */
-    UNRESPONSIVE
+    UNRESPONSIVE,
+
+    /**
+     * The node is unregistered.
+     */
+    UNREGISTERED,
+
+    /**
+     * The node failed registration.
+     */
+    FAILED_REGISTRATION
 }

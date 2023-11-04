@@ -4,7 +4,6 @@ import com.hunteryavitz.blockchainapi.constants.ContaminationLevel;
 import com.hunteryavitz.blockchainapi.entities.Block;
 import com.hunteryavitz.blockchainapi.services.BlockchainService;
 import com.hunteryavitz.blockchainapi.services.HealthMetricService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -57,6 +56,7 @@ public class BlockchainController {
         } catch (Exception exception) {
             healthMetricService.updateHealth(ContaminationLevel.CRITICAL, exception);
         }
+
         return ResponseEntity.ok(false);
     }
 
@@ -72,6 +72,7 @@ public class BlockchainController {
         } catch (Exception exception) {
             healthMetricService.updateHealth(ContaminationLevel.WARNING, exception);
         }
+
         return ResponseEntity.ok(null);
     }
 
@@ -88,6 +89,7 @@ public class BlockchainController {
         } catch (Exception exception) {
             healthMetricService.updateHealth(ContaminationLevel.WARNING, exception);
         }
+
         return ResponseEntity.ok(null);
     }
 }

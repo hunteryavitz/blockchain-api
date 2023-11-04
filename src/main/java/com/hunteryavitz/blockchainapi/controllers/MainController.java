@@ -34,7 +34,6 @@ public class MainController {
      * @param healthMetricService The health metric service.
      */
     public MainController(BlockchainService blockchainService, HealthMetricService healthMetricService) {
-
         this.blockchainService = blockchainService;
         this.healthMetricService = healthMetricService;
 
@@ -103,7 +102,7 @@ public class MainController {
 
         try {
             String filePath = "VERSION.txt";
-            version = Utils.readFileToString(filePath);
+            version = Utils.readFileToString(filePath).trim();
         } catch (Exception exception) {
             healthMetricService.updateHealth(ContaminationLevel.WARNING, exception);
             return ResponseEntity.ok(null);

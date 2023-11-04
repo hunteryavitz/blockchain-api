@@ -35,6 +35,7 @@ public class BlockController {
     public BlockController(BlockchainService blockchainService, HealthMetricService healthMetricService) {
         this.blockchainService = blockchainService;
         this.healthMetricService = healthMetricService;
+
         try {
             if (blockchainService.getBlockchain() == null) {
                 blockchainService.createInitialBlockchain();

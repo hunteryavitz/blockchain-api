@@ -4,10 +4,12 @@ package com.hunteryavitz.blockchainapi.constants;
  * The Status enum represents the status of an order.
  */
 public enum TransactionStatus {
+
     /**
      * The order has been created.
      */
     CREATED,
+
     /**
      * The order is pending.
      */

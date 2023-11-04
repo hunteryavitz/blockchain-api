@@ -2,13 +2,9 @@ package com.hunteryavitz.blockchainapi.services;
 
 import com.hunteryavitz.blockchainapi.constants.ContaminationLevel;
 import com.hunteryavitz.blockchainapi.entities.healthmetric.BlockchainProduction;
-import com.hunteryavitz.blockchainapi.entities.healthmetric.Node;
-import com.hunteryavitz.blockchainapi.entities.healthmetric.NodeNetworkStatus;
 import com.hunteryavitz.blockchainapi.utils.structures.SlidingWindow;
 import lombok.Getter;
-import lombok.Setter;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 /**
  * The HealthMetricService class.
@@ -41,18 +37,12 @@ public class HealthMetricService {
     private static BlockchainProduction blockchainProduction;
 
     /**
-     * The node network status.
-     */
-    public static NodeNetworkStatus nodeNetworkStatus;
-
-    /**
      * The constructor.
      */
     public HealthMetricService() {
         blockCount = 0;
         transactionCount = 0;
         blockchainProduction = new BlockchainProduction();
-        nodeNetworkStatus = new NodeNetworkStatus();
         health = new Integer[5];
         for (int i = 0; i < 5; i++) {
             health[i] = 0;
@@ -66,7 +56,6 @@ public class HealthMetricService {
         blockCount = 0;
         transactionCount = 0;
         blockchainProduction = new BlockchainProduction();
-        nodeNetworkStatus = new NodeNetworkStatus();
         health = new Integer[5];
         for (int i = 0; i < 5; i++) {
             health[i] = 0;
@@ -149,30 +138,5 @@ public class HealthMetricService {
                 System.out.println(exception.getMessage());
                 break;
         }
-    }
-
-    public Boolean getRoleCall() {
-        // as NM I have a list of registered nodes
-        // I need to iterate the list and send a request to each node for a status update
-        // I need to update my node network status with the response from each node
-        // I need to return true if this operation is successful
-        // I need to return false if this operation is unsuccessful
-
-        try {
-            for (Node node : nodeNetworkStatus.getNodeNetwork()) {
-                // send request to node
-                RestTemplate restTemplate = new RestTemplate();
-                String version = restTemplate.getForEntity("http://localhost:8080/api/v1/version", String.class).getBody();
-                System.out.println("node: " + node.getId());
-                System.out.println(version);
-                // update node network status
-            }
-            return Boolean.TRUE;
-        } catch (Exception exception) {
-            updateHealth(ContaminationLevel.INFO, exception);
-        }
-        return Boolean.FALSE;
-
-
     }
 }

@@ -1,6 +1,5 @@
 package com.hunteryavitz.blockchainapi.controllers;
 
-import com.hunteryavitz.blockchainapi.entities.healthmetric.NodeNetworkStatus;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -38,11 +37,6 @@ public class HealthMetricControllerTests {
     private static final String GET_PRODUCTION_HEALTH_ENDPOINT = "/healthMetric/getProductionHealth";
 
     /**
-     * The health metric endpoint.
-     */
-    private static final String GET_NODE_NETWORK_STATUS_ENDPOINT = "/healthMetric/getNodeNetworkStatus";
-
-    /**
      * Tests the updateProduction endpoint.
      */
     @Test
@@ -62,19 +56,5 @@ public class HealthMetricControllerTests {
                 API_VERSION + GET_PRODUCTION_HEALTH_ENDPOINT, String.class);
         assert response.getStatusCode().is2xxSuccessful();
         assert (response.getBody() != null);
-    }
-
-    /**
-     * Tests the getNodeNetworkStatus endpoint.
-     */
-    @Test
-    void testGetNodeNetworkStatus() {
-        ResponseEntity<NodeNetworkStatus> response = restTemplate.getForEntity(
-                API_VERSION + GET_NODE_NETWORK_STATUS_ENDPOINT, NodeNetworkStatus.class);
-        assert response.getStatusCode().is2xxSuccessful();
-        assert (response.getBody() != null);
-
-        NodeNetworkStatus nodeNetworkStatus = response.getBody();
-        assert (nodeNetworkStatus.getNodeNetwork() != null);
     }
 }
