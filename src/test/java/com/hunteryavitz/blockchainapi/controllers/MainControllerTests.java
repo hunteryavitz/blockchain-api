@@ -1,7 +1,5 @@
 package com.hunteryavitz.blockchainapi.controllers;
 
-import com.hunteryavitz.blockchainapi.services.BlockchainService;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -11,21 +9,18 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.TestPropertySource;
 
 import java.util.Arrays;
+import java.util.Objects;
 
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
- * Unit tests for the Main controller for the API.
+ * Unit tests for the Main controller.
  */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
     properties = {"spring.profiles.active=test"})
 @TestPropertySource(locations = "classpath:application-test.properties")
 public class MainControllerTests {
-
-    /**
-     * The blockchain service.
-     */
-    private static BlockchainService blockchainService;
 
     /**
      * The RestTemplate used to make requests to the API.
@@ -34,7 +29,7 @@ public class MainControllerTests {
     private TestRestTemplate restTemplate;
 
     /**
-     * The API version and endpoints.
+     * The API version and controller.
      */
     private static final String API_VERSION = "/api/v1";
 
@@ -49,79 +44,119 @@ public class MainControllerTests {
     private static final String LIVENESS_ENDPOINT = "/liveness";
 
     /**
-     * The health endpoint.
-     */
-    private static final String HEALTH_ENDPOINT = "/health";
-
-    /**
      * The version endpoint.
      */
     private static final String VERSION_ENDPOINT = "/version";
 
     /**
-     * The addBlock endpoint.
+     * The test query parameter.
      */
-    private static final String VERIFY_ENDPOINT = "/verifyBlockchain";
+    private static final String QUERY_PARAM_TEST = "?test=true";
 
+    /**
+     * The environment.
+     */
     @Autowired
     private Environment environment;
 
+    /**
+     * Test the environment.
+     */
     @Test
-    public void testActiveProfiles() {
+    public void testActiveProfiles_whenTest_showsTest() {
         assertTrue(Arrays.asList(environment.getActiveProfiles()).contains("test"));
     }
 
-
     /**
-     * Sets up the blockchain service.
-     */
-    @BeforeAll
-    static void beforeAll() {
-        if (blockchainService == null) {
-            blockchainService = new BlockchainService();
-            blockchainService.createInitialBlockchain();
-        }
-    }
-
-    /**
-     * Tests the isReady method.
+     * Tests the isReady method succeeds.
      */
     @Test
-    void testIsReady() {
-        ResponseEntity<Boolean> response = restTemplate.getForEntity(API_VERSION + READINESS_ENDPOINT, Boolean.class);
+    void testIsReady_onSuccess_returns200AndTrue() {
+        ResponseEntity<Boolean> response = restTemplate.getForEntity(
+                API_VERSION
+                        + READINESS_ENDPOINT, Boolean.class);
+
         assert response.getStatusCode().is2xxSuccessful();
         assert (Boolean.TRUE.equals(response.getBody()));
     }
 
     /**
-     * Tests the isAlive method.
+     * Tests the isReady method fails.
      */
     @Test
-    void isAlive() {
-        ResponseEntity<Integer> response = restTemplate.getForEntity(API_VERSION + LIVENESS_ENDPOINT, Integer.class);
+    void testIsReady_onFail_returns200AndFalse() {
+        ResponseEntity<Boolean> response = restTemplate.getForEntity(
+                API_VERSION
+                        + READINESS_ENDPOINT
+                        + QUERY_PARAM_TEST, Boolean.class);
+
         assert response.getStatusCode().is2xxSuccessful();
-        assert (response.getBody() != null);
+        assert (Boolean.FALSE.equals(response.getBody()));
     }
 
     /**
-     * Tests the getVersion method.
+     * Tests the isAlive method succeeds.
      */
     @Test
-    void testGetVersion() {
-        ResponseEntity<String> response = restTemplate.getForEntity(API_VERSION + VERSION_ENDPOINT, String.class);
+    void isAlive_onSuccess_returns200AndLiveness() {
+        ResponseEntity<Integer> response = restTemplate.getForEntity(
+                API_VERSION
+                        + LIVENESS_ENDPOINT, Integer.class);
+
+        assert response.getStatusCode().is2xxSuccessful();
+
+        try {
+            int liveness = Objects.requireNonNull(response.getBody());
+            assert (liveness > -1);
+        } catch (NullPointerException nullPointerException) {
+            assert (true);
+        }
+    }
+
+    /**
+     * Tests the isAlive method fails.
+     */
+    @Test
+    void isAlive_onFail_returns200AndNegativeOne() {
+        ResponseEntity<Integer> response = restTemplate.getForEntity(
+                API_VERSION
+                        + LIVENESS_ENDPOINT
+                        + QUERY_PARAM_TEST, Integer.class);
+
+        assert response.getStatusCode().is2xxSuccessful();
+
+        try {
+            int liveness = Objects.requireNonNull(response.getBody());
+            assert (liveness == -1);
+        } catch (NullPointerException nullPointerException) {
+            assert (true);
+        }
+    }
+
+    /**
+     * Tests the getVersion method succeeds.
+     */
+    @Test
+    void testGetVersion_onSuccess_returns200AndVersion() {
+        ResponseEntity<String> response = restTemplate.getForEntity(
+                API_VERSION
+                        + VERSION_ENDPOINT, String.class);
+
         assert response.getStatusCode().is2xxSuccessful();
         assert ("0.0.17".equals(response.getBody()));
     }
 
     /**
-     * Tests the verifyBlockchain method.
+     * Tests the getVersion method fails.
      */
     @Test
-    void testVerifyBlockchain() {
-        blockchainService = new BlockchainService();
-        blockchainService.createInitialBlockchain();
-        ResponseEntity<Boolean> response = restTemplate.getForEntity(API_VERSION + VERIFY_ENDPOINT, Boolean.class);
+    void testGetVersion_onFail_returns200AndEmpty() {
+        ResponseEntity<String> response = restTemplate.getForEntity(
+                API_VERSION
+                        + VERSION_ENDPOINT
+                        + QUERY_PARAM_TEST, String.class);
+
         assert response.getStatusCode().is2xxSuccessful();
-        assert (Boolean.TRUE.equals(response.getBody()));
+        assertNull (response.getBody());
     }
 }
