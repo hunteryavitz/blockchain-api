@@ -4,6 +4,7 @@ import com.hunteryavitz.blockchainapi.constants.ContaminationLevel;
 import com.hunteryavitz.blockchainapi.constants.NodeStatus;
 import com.hunteryavitz.blockchainapi.entities.healthmetric.Node;
 import com.hunteryavitz.blockchainapi.entities.healthmetric.NodeRegistryRequest;
+import com.hunteryavitz.blockchainapi.entities.healthmetric.NodeStatusResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -19,7 +20,7 @@ public class NodeManagerService {
     /**
      * nodeNetwork is a set of nodes that are currently registered with the network.
      */
-    public static Set<Node> nodeNetwork = new HashSet<>();
+    private static Set<Node> nodeNetwork = new HashSet<>();
 
     /**
      * healthMetricService is a service that is responsible for managing the health of the network.
@@ -96,5 +97,22 @@ public class NodeManagerService {
         }
 
         return Boolean.FALSE;
+    }
+
+    /**
+     * getNodeNetworkStatus is responsible for getting the status of the node network.
+     * @return the status of the node network.
+     */
+    public static NodeStatusResponse[] getNodeNetworkStatus() {
+        NodeStatusResponse[] nodeStatusResponses = new NodeStatusResponse[nodeNetwork.size()];
+        int i = 0;
+        for (Node node : nodeNetwork) {
+            NodeStatusResponse nodeStatusResponse = new NodeStatusResponse();
+            nodeStatusResponse.setX(node.getId());
+            nodeStatusResponse.setY(node.getTraffic());
+            nodeStatusResponses[i] = nodeStatusResponse;
+            i++;
+        }
+        return nodeStatusResponses;
     }
 }

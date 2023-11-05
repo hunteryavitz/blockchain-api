@@ -2,14 +2,12 @@ package com.hunteryavitz.blockchainapi.controllers;
 
 import com.hunteryavitz.blockchainapi.constants.ContaminationLevel;
 import com.hunteryavitz.blockchainapi.constants.NodeStatus;
-import com.hunteryavitz.blockchainapi.entities.healthmetric.Node;
 import com.hunteryavitz.blockchainapi.entities.healthmetric.NodeRegistryRequest;
+import com.hunteryavitz.blockchainapi.entities.healthmetric.NodeStatusResponse;
 import com.hunteryavitz.blockchainapi.services.HealthMetricService;
 import com.hunteryavitz.blockchainapi.services.NodeManagerService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Set;
 
 /**
  * NodeManagerController is the controller for the NodeManagerService.
@@ -54,9 +52,9 @@ public class NodeManagerController {
      * @return the node network status
      */
     @GetMapping("/getNodeNetworkStatus")
-    public ResponseEntity<Set<Node>> getNodeNetworkStatus() {
+    public ResponseEntity<NodeStatusResponse[]> getNodeNetworkStatus() {
         try {
-            return ResponseEntity.ok(NodeManagerService.nodeNetwork);
+            return ResponseEntity.ok(NodeManagerService.getNodeNetworkStatus());
         } catch (Exception exception) {
             healthMetricService.updateHealth(ContaminationLevel.WARNING, exception);
         }
