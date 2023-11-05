@@ -58,6 +58,10 @@ public class BlockchainService {
         healthMetricService.incrementBlockCount();
     }
 
+    public void mungeBlockchain() {
+        blockchain[0].setData("Munged Genesis Block");
+    }
+
     /**
      * The isAlive method is responsible for returning the liveness of the blockchain.
      * @return The liveness of the blockchain.
@@ -85,6 +89,24 @@ public class BlockchainService {
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException(e);
         }
+
+        blockchain[nextBlockIndex] = block;
+    }
+
+    /**
+     *  The addMungedBlockToBlockchain method is responsible for adding a munged block to the blockchain.
+     *  This is here for unit testing purposes.
+     */
+    public void addMungedBlockToBlockchain() {
+
+        int nextBlockIndex = getNextBlockIndexFromBlockchain();
+
+        Block previousBlock = blockchain[nextBlockIndex - 1];
+        Block block;
+
+        block = new Block(nextBlockIndex, previousBlock.getHash(),
+                System.currentTimeMillis(), "Block " + nextBlockIndex,
+                "munged hash");
 
         blockchain[nextBlockIndex] = block;
     }

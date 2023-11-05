@@ -35,6 +35,11 @@ public class Block {
 
     /**
      * The constructor for the Block class.
+     */
+    public Block() {}
+
+    /**
+     * The constructor for the Block class.
      * @param index The index of the block in the blockchain.
      * @param previous_hash The hash of the previous block in the blockchain.
      * @param timestamp The timestamp of the block.
