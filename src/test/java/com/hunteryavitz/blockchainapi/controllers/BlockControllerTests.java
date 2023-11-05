@@ -21,24 +21,44 @@ public class BlockControllerTests {
     private TestRestTemplate restTemplate;
 
     /**
-     * The API version and endpoints.
+     * The API version and controller.
      */
-    private static final String API_VERSION = "/api/v1";
+    private static final String API_VERSION = "/api/v1/block";
 
     /**
      * The readiness and readiness endpoints.
      */
-    private static final String ADD_BLOCK_ENDPOINT = "/block/addBlockToBlockchain";
+    private static final String ADD_BLOCK_ENDPOINT = "/addBlockToBlockchain";
 
     /**
-     * Tests the addBlockToBlockchain method.
+     * The query parameter for testing.
+     */
+    private static final String QUERY_PARAM_TEST = "?test=true";
+
+    /**
+     * Tests the addBlockToBlockchain method succeeds.
      */
     @Test
-    void testAddBlockToBlockchain() {
+    void testAddBlockToBlockchain_onSuccess_returns200AndTrue() {
         ResponseEntity<Boolean> response = restTemplate.postForEntity(
-                API_VERSION + ADD_BLOCK_ENDPOINT, null, Boolean.class);
+                API_VERSION
+                        + ADD_BLOCK_ENDPOINT, null, Boolean.class);
 
         assert response.getStatusCode().is2xxSuccessful();
         assert (Boolean.TRUE.equals(response.getBody()));
+    }
+
+   /**
+     * Tests the addBlockToBlockchain method fails.
+     */
+    @Test
+    void testAddBlockToBlockchain_onFail_returns200AndFalse() {
+        ResponseEntity<Boolean> response = restTemplate.postForEntity(
+                API_VERSION
+                        + ADD_BLOCK_ENDPOINT
+                        + QUERY_PARAM_TEST, null, Boolean.class);
+
+        assert response.getStatusCode().is2xxSuccessful();
+        assert (Boolean.FALSE.equals(response.getBody()));
     }
 }
