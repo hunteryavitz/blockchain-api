@@ -4,6 +4,7 @@ import com.hunteryavitz.blockchainapi.constants.ContaminationLevel;
 import com.hunteryavitz.blockchainapi.constants.NodeStatus;
 import com.hunteryavitz.blockchainapi.services.HealthMetricService;
 import com.hunteryavitz.blockchainapi.services.NodeService;
+import jakarta.websocket.server.PathParam;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,13 +38,17 @@ public class NodeController {
      * @return the node status
      */
     @GetMapping("/getNodeStatus")
-    public ResponseEntity<NodeStatus> getNodeStatus() {
+    public ResponseEntity<String> getNodeStatus(@PathParam("test") boolean test) {
         try {
-            return ResponseEntity.ok(NodeService.self);
+            if (test) {
+                throw new Exception("Test exception");
+            }
+
+            return ResponseEntity.ok(NodeService.self.toString());
         } catch (Exception exception) {
             healthMetricService.updateHealth(ContaminationLevel.WARNING, exception);
         }
 
-        return ResponseEntity.badRequest().build();
+        return ResponseEntity.ok(NodeStatus.UNRESPONSIVE.toString());
     }
 }
