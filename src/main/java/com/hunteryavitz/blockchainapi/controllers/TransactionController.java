@@ -4,6 +4,7 @@ import com.hunteryavitz.blockchainapi.constants.ContaminationLevel;
 import com.hunteryavitz.blockchainapi.entities.Transaction;
 import com.hunteryavitz.blockchainapi.services.HealthMetricService;
 import com.hunteryavitz.blockchainapi.services.TransactionService;
+import jakarta.websocket.server.PathParam;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,7 +36,7 @@ public class TransactionController {
         this.healthMetricService = healthMetricService;
 
         try {
-            if (transactionService.getTransactionPool() == null) {
+            if (TransactionService.getTransactionPool() == null) {
                 transactionService.createInitialTransactionPool();
             }
             if (healthMetricService.getProduction() == null) {
@@ -50,11 +51,16 @@ public class TransactionController {
     /**
      * The getTransactionPool method is responsible for returning the transaction pool.
      * @param transaction The transaction to be added to the transaction pool.
+     * @param test test query param.
      * @return The transaction pool.
      */
     @PostMapping(value = "/submitTransaction", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<Boolean> submitTransaction(@RequestBody Transaction transaction) {
+    public ResponseEntity<Boolean> submitTransaction(@RequestBody Transaction transaction,
+                                                     @PathParam("test") boolean test) {
         try {
+            if (test) {
+                throw new Exception("Test exception");
+            }
             transactionService.submitTransaction(transaction);
             return ResponseEntity.ok(true);
         } catch (Exception exception) {
@@ -66,12 +72,16 @@ public class TransactionController {
 
     /**
      * The getTransactionPool method is responsible for returning the transaction pool.
+     * @param test test query param.
      * @return The transaction pool.
      */
     @GetMapping(value = "/getTransactionPool", produces = "application/json")
-    public ResponseEntity<Transaction[]> getTransactionPool() {
+    public ResponseEntity<Transaction[]> getTransactionPool(@PathParam("test") boolean test) {
         try {
-            return ResponseEntity.ok(transactionService.getTransactionPool());
+            if (test) {
+                throw new Exception("Test exception");
+            }
+            return ResponseEntity.ok(TransactionService.getTransactionPool());
         } catch (Exception exception) {
             healthMetricService.updateHealth(ContaminationLevel.WARNING, exception);
         }

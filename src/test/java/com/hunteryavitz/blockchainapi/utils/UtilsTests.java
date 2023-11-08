@@ -43,12 +43,9 @@ public class UtilsTests {
 
         BlockchainService blockchainService = new BlockchainService();
 
-        assert blockchainService != null;
-
         blockchainService.addBlockToBlockchain();
         Block[] blockchain = blockchainService.getBlockchain();
 
-        System.out.println(Arrays.toString(blockchain));
         boolean isValid = Utils.verifyBlockchain(blockchain);
 
         assertTrue(isValid);

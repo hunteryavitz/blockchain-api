@@ -1,10 +1,7 @@
 package com.hunteryavitz.blockchainapi.controllers;
 
-import com.hunteryavitz.blockchainapi.entities.Block;
 import com.hunteryavitz.blockchainapi.entities.Transaction;
-import com.hunteryavitz.blockchainapi.services.TransactionService;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -19,69 +16,88 @@ import org.springframework.test.context.TestPropertySource;
 public class TransactionControllerTests {
 
     /**
-     * The TransactionService used to make requests to the API.
-     */
-    @Mock
-    private TransactionService transactionService;
-
-    /**
      * The RestTemplate used to make requests to the API.
      */
     @Autowired
     private TestRestTemplate restTemplate;
 
     /**
-     * The API version and endpoints.
+     * The API version and controller.
      */
-    private static final String API_VERSION = "/api/v1";
+    private static final String API_VERSION = "/api/v1/transaction";
 
     /**
      * The submit transaction endpoint.
      */
-    private static final String SUBMIT_TRANSACTION_ENDPOINT = "/transaction/submitTransaction";
+    private static final String SUBMIT_TRANSACTION_ENDPOINT = "/submitTransaction";
 
     /**
      * The get transaction pool endpoint.
      */
-    private static final String GET_BLOCK_BY_INDEX_ENDPOINT = "/blockchain/getBlockById?id=1";
+    private static final String GET_TRANSACTION_POOL_ENDPOINT = "/getTransactionPool";
 
     /**
-     * Tests the getBlockchain endpoint.
+     * The query param for testing.
+     */
+    private static final String QUERY_PARAM_TEST = "?test=true";
+
+    /**
+     * Tests the getBlockchain endpoint succeeds.
      */
     @Test
-    void testSubmitTransaction() {
+    void testSubmitTransaction_onSuccess_returns200AndTrue() {
+
         Transaction transaction = new Transaction(999, "right_now", "your mom", "CREATED");
 
-        ResponseEntity<Boolean> response = restTemplate.postForEntity(
-                API_VERSION + SUBMIT_TRANSACTION_ENDPOINT, transaction, Boolean.class);
+        ResponseEntity<Boolean> response = restTemplate.postForEntity(API_VERSION
+                        + SUBMIT_TRANSACTION_ENDPOINT, transaction, Boolean.class);
 
         assert response.getStatusCode().is2xxSuccessful();
         assert (Boolean.TRUE.equals(response.getBody()));
     }
 
     /**
-     * Tests the Transaction Service to add Block to Blockchain when full.
+     * Tests the getBlockchain endpoint fails.
      */
     @Test
-    void testAddsBlockOnFullTransactionPool() {
+    void testSubmitTransaction_onFail_returns200AndFalse() {
 
-        transactionService = new TransactionService();
-        transactionService.createInitialTransactionPool();
-        Transaction transaction = new Transaction(999, "right_now", "your mom", "CREATED");
+        Transaction transaction = new Transaction(
+                999, "right_now", "your mom", "CREATED");
 
-        int transactionPoolLength = transactionService.getTransactionPool().length;
+        ResponseEntity<Boolean> response = restTemplate.postForEntity(API_VERSION
+                + SUBMIT_TRANSACTION_ENDPOINT
+                + QUERY_PARAM_TEST, transaction, Boolean.class);
 
-        for (int i = 0; i < transactionPoolLength; i++) {
-            transactionService.submitTransaction(transaction);
-        }
+        System.out.println(response.getBody());
+        assert response.getStatusCode().is2xxSuccessful();
+        assert (Boolean.FALSE.equals(response.getBody()));
+    }
 
-        ResponseEntity<Block> response = restTemplate.getForEntity(
-                API_VERSION + GET_BLOCK_BY_INDEX_ENDPOINT, Block.class);
+    /**
+     * Tests the get transaction pool endpoint succeeds.
+     */
+    @Test
+    void testGetTransactionPool_onSuccess_returns200AndTransactionPool() {
+
+        ResponseEntity<Transaction[]> response = restTemplate.getForEntity(API_VERSION
+                + GET_TRANSACTION_POOL_ENDPOINT, Transaction[].class);
 
         assert response.getStatusCode().is2xxSuccessful();
+        assert response.getBody() != null;
+    }
 
-        Block block = response.getBody();
-        System.out.println(block);
-        assert block != null;
+    /**
+     * Tests the get transaction pool endpoint fails.
+     */
+    @Test
+    void testGetTransactionPool_onFail_returns200AndEmptyTransactionPool() {
+
+        ResponseEntity<Transaction[]> response = restTemplate.getForEntity(API_VERSION
+                + GET_TRANSACTION_POOL_ENDPOINT
+                + QUERY_PARAM_TEST, Transaction[].class);
+
+        assert response.getStatusCode().is2xxSuccessful();
+        assert response.getBody() != null;
     }
 }

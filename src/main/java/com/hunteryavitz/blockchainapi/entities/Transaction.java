@@ -1,6 +1,6 @@
 package com.hunteryavitz.blockchainapi.entities;
 
-import com.hunteryavitz.blockchainapi.constants.Status;
+import com.hunteryavitz.blockchainapi.constants.TransactionStatus;
 import lombok.Data;
 
 /**
@@ -27,19 +27,19 @@ public class Transaction {
     /**
      * The status of the transaction.
      */
-    private Status status;
+    private TransactionStatus transactionStatus;
 
     /**
      * The constructor for the Transaction class.
      * @param id The id of the transaction.
      * @param timestamp The timestamp of the transaction.
      * @param source The source of the transaction.
-     * @param status The status of the transaction.
+     * @param transactionStatus The status of the transaction.
      */
-    public Transaction(long id, String timestamp, String source, String status) {
+    public Transaction(long id, String timestamp, String source, String transactionStatus) {
         this.id = id;
         this.timestamp = timestamp;
         this.source = source;
-        this.status = Enum.valueOf(Status.class, status);
+        this.transactionStatus = Enum.valueOf(TransactionStatus.class, transactionStatus);
     }
 }

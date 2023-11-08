@@ -90,6 +90,24 @@ public class BlockchainService {
     }
 
     /**
+     *  The addMungedBlockToBlockchain method is responsible for adding a munged block to the blockchain.
+     *  This is here for unit testing purposes.
+     */
+    public void addMungedBlockToBlockchain() {
+
+        int nextBlockIndex = getNextBlockIndexFromBlockchain();
+
+        Block previousBlock = blockchain[nextBlockIndex - 1];
+        Block block;
+
+        block = new Block(nextBlockIndex, previousBlock.getHash(),
+                System.currentTimeMillis(), "Block " + nextBlockIndex,
+                "munged hash");
+
+        blockchain[nextBlockIndex] = block;
+    }
+
+    /**
      * The addBlockToBlockchain method is responsible for adding a block to the blockchain.
      * @param transactionPool The transaction pool.
      */

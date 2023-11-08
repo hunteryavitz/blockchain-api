@@ -1,7 +1,11 @@
 # Blockchain API
 Unreleased
 
-*v0.0.15*
+*v0.0.17*
+
+**11/7/23**
+
+- [ADD Nodes Health Check Service and Endpoint](#54)
 
 **10/31/23**
 

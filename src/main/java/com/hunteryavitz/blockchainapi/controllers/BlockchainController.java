@@ -4,7 +4,7 @@ import com.hunteryavitz.blockchainapi.constants.ContaminationLevel;
 import com.hunteryavitz.blockchainapi.entities.Block;
 import com.hunteryavitz.blockchainapi.services.BlockchainService;
 import com.hunteryavitz.blockchainapi.services.HealthMetricService;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.websocket.server.PathParam;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -57,37 +57,50 @@ public class BlockchainController {
         } catch (Exception exception) {
             healthMetricService.updateHealth(ContaminationLevel.CRITICAL, exception);
         }
+
         return ResponseEntity.ok(false);
     }
 
     /**
      * The getBlockchain method is the endpoint for getting the blockchain.
+     * @param test The test query parameter.
      * @return A ResponseEntity containing the blockchain.
      */
     @GetMapping("/getBlockchain")
-    public ResponseEntity<Block[]> getBlockchain() {
+    public ResponseEntity<Block[]> getBlockchain(@PathParam("test") boolean test) {
         try {
             Block[] blockchain = blockchainService.getBlockchain();
+            if (test) {
+                throw new Exception("Empty blockchain");
+            }
+
             return ResponseEntity.ok(blockchain);
         } catch (Exception exception) {
             healthMetricService.updateHealth(ContaminationLevel.WARNING, exception);
         }
-        return ResponseEntity.ok(null);
+
+        return ResponseEntity.ok(new Block[0]);
     }
 
     /**
      * The getBlockById method is the endpoint for getting a block by its id.
      * @param id The id of the block.
+     * @param test The test query parameter.
      * @return A ResponseEntity containing the block.
      */
     @GetMapping("/getBlockById")
-    public ResponseEntity<Block> getBlockById(@RequestParam int id) {
+    public ResponseEntity<Block> getBlockById(@RequestParam int id, @PathParam("test") boolean test) {
         try {
             Block block = blockchainService.getBlockById(id);
+            if (test) {
+                throw new Exception("Empty block");
+            }
+
             return ResponseEntity.ok(block);
         } catch (Exception exception) {
             healthMetricService.updateHealth(ContaminationLevel.WARNING, exception);
         }
-        return ResponseEntity.ok(null);
+
+        return ResponseEntity.ok(new Block());
     }
 }

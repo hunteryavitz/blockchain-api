@@ -1,5 +1,6 @@
 package com.hunteryavitz.blockchainapi.services;
 
+import com.hunteryavitz.blockchainapi.entities.Block;
 import com.hunteryavitz.blockchainapi.entities.Transaction;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -69,3 +70,6 @@ public class BlockchainServiceTests {
         assert transactionFromBlockchain.contains("your mom");
     }
 }
+//    Block[] mockBlockchain = {};
+//    when(blockchainService.getBlockchain()).thenReturn(mockBlockchain);
+//        ResponseEntity<Block[]> response = blockchainController.getBlockchain();
