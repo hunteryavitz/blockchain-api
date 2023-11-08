@@ -63,6 +63,7 @@ public class BlockchainController {
 
     /**
      * The getBlockchain method is the endpoint for getting the blockchain.
+     * @param test The test query parameter.
      * @return A ResponseEntity containing the blockchain.
      */
     @GetMapping("/getBlockchain")
@@ -84,6 +85,7 @@ public class BlockchainController {
     /**
      * The getBlockById method is the endpoint for getting a block by its id.
      * @param id The id of the block.
+     * @param test The test query parameter.
      * @return A ResponseEntity containing the block.
      */
     @GetMapping("/getBlockById")

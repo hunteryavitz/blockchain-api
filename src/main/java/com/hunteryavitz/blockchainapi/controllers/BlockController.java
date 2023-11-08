@@ -48,6 +48,7 @@ public class BlockController {
 
     /**
      * The addBlockToBlockchain method is responsible for adding a block to the blockchain.
+     * @param test The test query parameter.
      * @return A ResponseEntity containing a boolean indicating whether the block was added to the blockchain.
      */
     @PostMapping("/addBlockToBlockchain")

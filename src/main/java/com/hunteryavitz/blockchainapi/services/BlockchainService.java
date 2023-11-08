@@ -58,10 +58,6 @@ public class BlockchainService {
         healthMetricService.incrementBlockCount();
     }
 
-    public void mungeBlockchain() {
-        blockchain[0].setData("Munged Genesis Block");
-    }
-
     /**
      * The isAlive method is responsible for returning the liveness of the blockchain.
      * @return The liveness of the blockchain.

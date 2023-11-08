@@ -33,6 +33,7 @@ public class HealthMetricController {
 
     /**
      * Updates the health metric.
+     * @param test The test query parameter.
      * @return A ResponseEntity containing a boolean indicating whether the health metric was updated.
      */
     @GetMapping("/updateProductionHealth")
@@ -53,6 +54,7 @@ public class HealthMetricController {
 
     /**
      * Gets the production health.
+     * @param test The test query parameter.
      * @return The production health.
      */
     @GetMapping("/getProductionHealth")
@@ -73,6 +75,7 @@ public class HealthMetricController {
 
     /**
      * Gets the production health.
+     * @param test The test query parameter.
      * @return The production health.
      */
     @GetMapping("/getExceptionHealth")

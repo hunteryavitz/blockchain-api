@@ -49,6 +49,7 @@ public class MainController {
 
     /**
      * Returns a 200 response and true to indicate that the API is ready to accept requests.
+     * @param test The test query parameter.
      * @return 200 response and true
      */
     @GetMapping("/readiness")
@@ -69,6 +70,7 @@ public class MainController {
 
     /**
      * Returns a 200 response to indicate that the API is alive.
+     * @param test The test query parameter.
      * @return 200 response
      */
     @GetMapping("/liveness")
@@ -88,6 +90,7 @@ public class MainController {
 
     /**
      * Returns the version of the API.
+     * @param test The test query parameter.
      * @return 200 response with the version of the API
      */
     @GetMapping("/version")

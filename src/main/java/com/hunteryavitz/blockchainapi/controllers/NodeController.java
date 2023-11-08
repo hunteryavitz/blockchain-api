@@ -35,6 +35,7 @@ public class NodeController {
 
     /**
      * Gets the node status.
+     * @param test the test query parameter
      * @return the node status
      */
     @GetMapping("/getNodeStatus")
