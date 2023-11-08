@@ -3,7 +3,7 @@ Unreleased
 
 *v0.0.17*
 
-**11/3/23**
+**11/7/23**
 
 - [ADD Nodes Health Check Service and Endpoint](#54)
 

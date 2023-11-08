@@ -29,47 +29,60 @@ mvn javadoc:javadoc
 ## Endpoints
 The current serviceable endpoints are as follows:
 
-### Verify Blockchain
+###
 GET http://localhost:8080/api/v1/blockchain/verifyBlockchain
 
-### Get Blockchain
+###
 GET http://localhost:8080/api/v1/blockchain/getBlockchain
 
-### Get Block By Id
+###
 GET http://localhost:8080/api/v1/blockchain/getBlockById
 
-### Add Block to Blockchain
+###
 POST http://localhost:8080/api/v1/block/addBlockToBlockchain
+Content-Type: application/x-www-form-urlencoded
 
-### Update Production
-GET http://localhost:8080/api/v1/healthMetric/updateProduction
+###
+GET http://localhost:8080/api/v1/healthMetric/updateProductionHealth
 
-### Get Production
+###
 GET http://localhost:8080/api/v1/healthMetric/getProductionHealth
 
-### Get Node Network Status
-GET http://localhost:8080/api/v1/healthMetric/getNodeNetworkStatus
+###
+GET http://localhost:8080/api/v1/healthMetric/getExceptionHealth
 
-### Get Health
-GET http://localhost:8080/api/v1/healthMetric/health
-
-### Get Readiness
+###
 GET http://localhost:8080/api/v1/readiness
 
-### Get Liveness
+###
 GET http://localhost:8080/api/v1/liveness
 
-### Get Version
+###
 GET http://localhost:8080/api/v1/version
 
-### Verify Blockchain
-GET http://localhost:8080/api/v1/verifyBlockchain
+###
+GET http://localhost:8080/api/v1/node/getNodeStatus
 
-### Submit Transaction
+###
+POST http://localhost:8080/api/v1/nodeManager/registerNode
+Content-Type: application/json
+
+{}
+
+###
+GET http://localhost:8080/api/v1/nodeManager/getNodeNetworkStatus
+
+###
+GET http://localhost:8080/api/v1/nodeManager/nodeNetworkRollCall
+
+###
 POST http://localhost:8080/api/v1/transaction/submitTransaction
+Content-Type: application/json
 
-### Get Transaction Pool
-GET /api/v1/transaction/getTransactionPool
+{}
+
+###
+GET http://localhost:8080/api/v1/transaction/getTransactionPool
 
 ---
 
