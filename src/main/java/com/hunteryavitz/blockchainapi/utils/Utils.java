@@ -24,7 +24,6 @@ public class Utils {
      * @throws NoSuchAlgorithmException Thrown if the SHA-256 algorithm is not available.
      */
     public static String calculateHash(int index, String previous_hash, long timestamp, String data) throws NoSuchAlgorithmException {
-
         String value = index + previous_hash + timestamp + data;
         MessageDigest digest = MessageDigest.getInstance("SHA-256");
 
@@ -47,12 +46,12 @@ public class Utils {
      * @return True if the blockchain is valid, false otherwise.
      */
     public static boolean verifyBlockchain(Block[] blockchain) {
-
         for (int i = 1; i < blockchain.length; i++) {
             Block currentBlock = blockchain[i];
             Block previousBlock = blockchain[i - 1];
 
             if (currentBlock == null) {
+
                 return true;
             }
 
@@ -60,10 +59,12 @@ public class Utils {
                 if (!currentBlock.getHash().equals(
                         calculateHash(currentBlock.getIndex(), currentBlock.getPrevious_hash(),
                                 currentBlock.getTimestamp(), currentBlock.getData()))) {
+
                     return false;
                 }
 
                 if (!currentBlock.getPrevious_hash().equals(previousBlock.getHash())) {
+
                     return false;
                 }
 
@@ -81,7 +82,6 @@ public class Utils {
      * @return The index of the next block in the blockchain.
      */
     public static int getNextBlockIndexFromBlockchain(Block[] blockchain) {
-
         for (int i = 1; i < blockchain.length; i++) {
             if (blockchain[i] == null) {
                 return i;
@@ -97,7 +97,6 @@ public class Utils {
      * @return The liveness of the node.
      */
     public static int calculateLiveness(Boolean[] liveness) {
-
         int checksCount = 0;
         int checksPassed = 0;
 
@@ -109,8 +108,8 @@ public class Utils {
                 }
             }
         }
-
         double livenessPercentage = (double) checksPassed / (double) checksCount;
+
         return (int) (livenessPercentage * 100);
     }
 
@@ -124,10 +123,12 @@ public class Utils {
         Boolean[] updatedLiveness = new Boolean[100];
 
         for (int i = 0; i < liveness.length; i++) {
+
             if (liveness[i] != null) {
                 updatedLiveness[i] = liveness[i];
             } else {
                 updatedLiveness[i] = Math.random() < 0.9;
+
                 return updatedLiveness;
             }
         }
@@ -143,9 +144,10 @@ public class Utils {
     public static String readFileToString(String filePath) {
         try {
             byte[] bytes = Files.readAllBytes(Paths.get(filePath));
+
             return new String(bytes);
         } catch (IOException e) {
-            System.out.println("shit");
+
             return "";
         }
     }

@@ -17,7 +17,12 @@ public class Node {
         /**
          * The address of the node.
          */
-        private String address;
+        private String addressGetStatus;
+
+        /**
+         * The address of the node.
+         */
+        private String addressGetTraffic;
 
         /**
          * The status of the node.
@@ -30,25 +35,17 @@ public class Node {
         private int traffic;
 
         /**
-         * The default constructor.
-         */
-        public Node() {
-                id = -1;
-                address = "-1";
-                nodeStatus = NodeStatus.INACTIVE;
-                traffic = -1;
-        }
-
-        /**
          * The overloaded constructor.
          * @param id the id of the node
-         * @param address the address of the node
+         * @param addressGetStatus the address of the node
+         * @param addressGetTraffic the address of the node
          * @param nodeStatus the status of the node
          * @param traffic the traffic of the node
          */
-        public Node(int id, String address, NodeStatus nodeStatus, int traffic) {
+        public Node(int id, String addressGetStatus, String addressGetTraffic, NodeStatus nodeStatus, int traffic) {
                 this.id = id;
-                this.address = address;
+                this.addressGetStatus = addressGetStatus;
+                this.addressGetTraffic = addressGetTraffic;
                 this.nodeStatus = nodeStatus;
                 this.traffic = traffic;
         }

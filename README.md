@@ -1,5 +1,5 @@
 # Blockchain API
-**Last Updated:** 11/2/23
+**Last Updated:** 11/11/23
 
 This is the API and backend code for the blockchain project.
 
@@ -62,6 +62,9 @@ GET http://localhost:8080/api/v1/version
 
 ###
 GET http://localhost:8080/api/v1/node/getNodeStatus
+
+###
+GET http://localhost:8080/api/v1/node/getNodeTraffic
 
 ###
 POST http://localhost:8080/api/v1/nodeManager/registerNode

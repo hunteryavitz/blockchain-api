@@ -1,7 +1,11 @@
 # Blockchain API
 Unreleased
 
-*v0.0.17*
+*v0.0.18*
+
+**11/11/23**
+
+- [Fix: Node Network Status and Node Traffic](#56)
 
 **11/7/23**
 

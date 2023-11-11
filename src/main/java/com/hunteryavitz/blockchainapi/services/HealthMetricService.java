@@ -116,26 +116,21 @@ public class HealthMetricService {
         switch (contaminationLevel.toString()) {
             case "INFO":
                 health[0] = health[0] + 1;
-                System.out.println(health[0]);
                 break;
             case "WARNING":
                 health[1] = health[1] + 1;
-                System.out.println(health[1]);
                 break;
             case "ERROR":
                 health[2] = health[2] + 1;
-                System.out.println(health[2]);
                 break;
             case "CRITICAL":
                 health[3] = health[3] + 1;
-                System.out.println(health[3]);
                 break;
             case "UNKNOWN":
                 health[4] = health[4] + 1;
-                System.out.println(health[4]);
                 break;
             default:
-                System.out.println(exception.getMessage());
+                System.out.println(Exception.class.getName() + " " + exception.getMessage());
                 break;
         }
     }

@@ -62,6 +62,7 @@ public class TransactionController {
                 throw new Exception("Test exception");
             }
             transactionService.submitTransaction(transaction);
+
             return ResponseEntity.ok(true);
         } catch (Exception exception) {
             healthMetricService.updateHealth(ContaminationLevel.WARNING, exception);

@@ -25,12 +25,19 @@ public class NodeController {
     private final HealthMetricService healthMetricService;
 
     /**
+     * The node service.
+     */
+    private final NodeService nodeService;
+
+    /**
      * The node controller constructor.
      * @param healthMetricService the health metric service
+     * @param nodeService the node service
      */
-    public NodeController(HealthMetricService healthMetricService) {
+    public NodeController(HealthMetricService healthMetricService, NodeService nodeService) {
         this.healthMetricService = healthMetricService;
-        NodeService.initializeNodeService();
+        this.nodeService = nodeService;
+        nodeService.initializeNodeService();
     }
 
     /**
@@ -39,17 +46,37 @@ public class NodeController {
      * @return the node status
      */
     @GetMapping("/getNodeStatus")
-    public ResponseEntity<String> getNodeStatus(@PathParam("test") boolean test) {
+    public ResponseEntity<NodeStatus> getNodeStatus(@PathParam("test") boolean test) {
         try {
             if (test) {
                 throw new Exception("Test exception");
             }
 
-            return ResponseEntity.ok(NodeService.self.toString());
+            return ResponseEntity.ok(nodeService.self);
         } catch (Exception exception) {
             healthMetricService.updateHealth(ContaminationLevel.WARNING, exception);
         }
 
-        return ResponseEntity.ok(NodeStatus.UNRESPONSIVE.toString());
+        return ResponseEntity.ok(NodeStatus.UNRESPONSIVE);
+    }
+
+    /**
+     * Gets the node traffic.
+     * @param test the test query parameter
+     * @return the node traffic
+     */
+    @GetMapping("/getNodeTraffic")
+    public ResponseEntity<Integer> getNodeTraffic(@PathParam("test") boolean test) {
+        try {
+            if (test) {
+                throw new Exception("Test exception");
+            }
+
+            return ResponseEntity.ok(nodeService.traffic);
+        } catch (Exception exception) {
+            healthMetricService.updateHealth(ContaminationLevel.WARNING, exception);
+        }
+
+        return ResponseEntity.ok(-1);
     }
 }

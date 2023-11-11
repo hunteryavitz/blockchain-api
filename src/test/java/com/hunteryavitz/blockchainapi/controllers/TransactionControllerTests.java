@@ -69,7 +69,6 @@ public class TransactionControllerTests {
                 + SUBMIT_TRANSACTION_ENDPOINT
                 + QUERY_PARAM_TEST, transaction, Boolean.class);
 
-        System.out.println(response.getBody());
         assert response.getStatusCode().is2xxSuccessful();
         assert (Boolean.FALSE.equals(response.getBody()));
     }
