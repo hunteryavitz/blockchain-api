@@ -79,6 +79,9 @@ GET http://localhost:8080/api/v1/nodeManager/getNodeNetworkStatus
 GET http://localhost:8080/api/v1/nodeManager/nodeNetworkRollCall
 
 ###
+GET http://localhost:8080/api/v1/nodeManager/getNodeNetworkHealth
+
+###
 POST http://localhost:8080/api/v1/transaction/submitTransaction
 Content-Type: application/json
 
