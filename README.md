@@ -82,10 +82,14 @@ The aim of this API is to provide service to the client-side structure.
 ### Related
 This API is a component of the [Blockchain Project](https://github.com/hunteryavitz/blockchain-main).  It works as the back-end code to provide services to the following clients:
 
-- [Blockchain Admin Client](https://github.com/hunteryavitz/blockchain-client-admin)
-- [Blockchain Mobile Client](https://github.com/hunteryavitz/blockchain-client-mobile)
+- [Blockchain Admin Web Client](https://github.com/hunteryavitz/blockchain-client-admin)
+- [Blockchain Field Mobile Client](https://github.com/hunteryavitz/blockchain-client-mobile)
 
 ### Extra
 Feel free to download, modify, or use in any way.
+
+Feedback welcome.
+
+---
 
 Developer: [Hunter Yavitz](mailto:h.yavitz@gmail.com)
