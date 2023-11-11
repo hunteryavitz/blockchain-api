@@ -5,6 +5,7 @@ Unreleased
 
 **11/11/23**
 
+- [DOCS: Update Documentation](#60)
 - [FEAT: Get Node Health Returns List of Node Status and Traffic Objects](#58)
 - [Fix: Node Network Status and Node Traffic](#56)
 
