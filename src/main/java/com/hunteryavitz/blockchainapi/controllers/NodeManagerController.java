@@ -2,6 +2,7 @@ package com.hunteryavitz.blockchainapi.controllers;
 
 import com.hunteryavitz.blockchainapi.constants.ContaminationLevel;
 import com.hunteryavitz.blockchainapi.constants.NodeStatus;
+import com.hunteryavitz.blockchainapi.entities.healthmetric.NodeHealthResponse;
 import com.hunteryavitz.blockchainapi.entities.healthmetric.NodeRegistryRequest;
 import com.hunteryavitz.blockchainapi.entities.healthmetric.NodeStatusResponse;
 import com.hunteryavitz.blockchainapi.services.HealthMetricService;
@@ -90,5 +91,25 @@ public class NodeManagerController {
         }
 
         return ResponseEntity.ok(Boolean.FALSE);
+    }
+
+    /**
+     * Gets node network health.
+     * @param test test query param
+     * @return the node network health
+     */
+    @GetMapping("/getNodeNetworkHealth")
+    public ResponseEntity<NodeHealthResponse> getNodeNetworkHealth(@PathParam("test") boolean test) {
+        try {
+            if (test) {
+                throw new Exception("test exception");
+            }
+
+            return ResponseEntity.ok(NodeManagerService.getNodeNetworkHealth());
+        } catch (Exception exception) {
+            healthMetricService.updateHealth(ContaminationLevel.WARNING, exception);
+        }
+
+        return ResponseEntity.ok(new NodeHealthResponse());
     }
 }

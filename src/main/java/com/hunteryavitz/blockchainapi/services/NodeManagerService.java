@@ -2,12 +2,11 @@ package com.hunteryavitz.blockchainapi.services;
 
 import com.hunteryavitz.blockchainapi.constants.ContaminationLevel;
 import com.hunteryavitz.blockchainapi.constants.NodeStatus;
-import com.hunteryavitz.blockchainapi.entities.healthmetric.Node;
-import com.hunteryavitz.blockchainapi.entities.healthmetric.NodeRegistryRequest;
-import com.hunteryavitz.blockchainapi.entities.healthmetric.NodeStatusResponse;
+import com.hunteryavitz.blockchainapi.entities.healthmetric.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -130,5 +129,24 @@ public class NodeManagerService {
         }
 
         return nodeStatusResponses;
+    }
+
+    /**
+     * getNodeNetworkHealth is responsible for getting the health of the node network.
+     * @return the health of the node network.
+     */
+    public static NodeHealthResponse getNodeNetworkHealth() {
+        NodeHealthResponse nodeHealthResponse = new NodeHealthResponse();
+        nodeHealthResponse.setNodeHealthResponse(new ArrayList<>());
+
+        for (Node node : nodeNetwork) {
+            NodeHealth nodeHealth = new NodeHealth();
+            nodeHealth.setNodeId(node.getId());
+            nodeHealth.setNodeStatus(node.getNodeStatus());
+            nodeHealth.setNodeTraffic(node.getTraffic());
+            nodeHealthResponse.addNodeHealth(nodeHealth);
+        }
+
+        return nodeHealthResponse;
     }
 }

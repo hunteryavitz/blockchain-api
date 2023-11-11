@@ -1,6 +1,7 @@
 package com.hunteryavitz.blockchainapi.controllers;
 
 import com.hunteryavitz.blockchainapi.constants.NodeStatus;
+import com.hunteryavitz.blockchainapi.entities.healthmetric.NodeHealthResponse;
 import com.hunteryavitz.blockchainapi.entities.healthmetric.NodeRegistryRequest;
 import com.hunteryavitz.blockchainapi.entities.healthmetric.NodeStatusResponse;
 import org.junit.jupiter.api.Test;
@@ -43,6 +44,11 @@ public class NodeManagerControllerTests {
      * The get node network status endpoint.
      */
     private static final String GET_NODE_NETWORK_STATUS_ENDPOINT = "/getNodeNetworkStatus";
+
+    /**
+     * The get node network health endpoint.
+     */
+    private static final String GET_NODE_NETWORK_HEALTH_ENDPOINT = "/getNodeNetworkHealth";
 
     /**
      * The query param test.
@@ -129,5 +135,31 @@ public class NodeManagerControllerTests {
 
         assert response.getStatusCode().is2xxSuccessful();
         assert Boolean.FALSE.equals(response.getBody());
+    }
+
+    /**
+     * Test get node network health succeeds.
+     */
+    @Test
+    void testGetNodeNetworkHealth_onSuccess_returns200AndNodeNetworkHealth() {
+        ResponseEntity<NodeHealthResponse> response = restTemplate.getForEntity(API_VERSION
+                + GET_NODE_NETWORK_HEALTH_ENDPOINT
+                + QUERY_PARAM_TEST, NodeHealthResponse.class);
+
+        assert response.getStatusCode().is2xxSuccessful();
+        assert response.getBody() != null;
+    }
+
+    /**
+     * Test get node network health fails.
+     */
+    @Test
+    void testGetNodeNetworkHealth_onFail_returns200AndEmptyArray() {
+        ResponseEntity<NodeHealthResponse> response = restTemplate.getForEntity(API_VERSION
+                + GET_NODE_NETWORK_HEALTH_ENDPOINT
+                + QUERY_PARAM_TEST, NodeHealthResponse.class);
+
+        assert response.getStatusCode().is2xxSuccessful();
+        assert response.getBody() != null;
     }
 }

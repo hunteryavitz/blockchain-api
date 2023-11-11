@@ -143,7 +143,7 @@ public class MainControllerTests {
                         + VERSION_ENDPOINT, String.class);
 
         assert response.getStatusCode().is2xxSuccessful();
-        assert ("0.0.18".equals(response.getBody()));
+        assert ("0.0.19".equals(response.getBody()));
     }
 
     /**

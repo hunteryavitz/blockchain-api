@@ -1,10 +1,11 @@
 # Blockchain API
 Unreleased
 
-*v0.0.18*
+*v0.0.19*
 
 **11/11/23**
 
+- [FEAT: Get Node Health Returns List of Node Status and Traffic Objects](#58)
 - [Fix: Node Network Status and Node Traffic](#56)
 
 **11/7/23**
