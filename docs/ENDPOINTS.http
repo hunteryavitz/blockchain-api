@@ -1,0 +1,75 @@
+## Main
+###
+GET http://localhost:8080/api/v1/readiness
+
+###
+GET http://localhost:8080/api/v1/liveness
+
+###
+GET http://localhost:8080/api/v1/version
+
+## Block
+###
+POST http://localhost:8080/api/v1/block/addBlockToBlockchain
+
+## Blockchain
+###
+GET http://localhost:8080/api/v1/blockchain/verifyBlockchain
+
+###
+GET http://localhost:8080/api/v1/blockchain/getBlockchain
+
+###
+GET http://localhost:8080/api/v1/blockchain/getBlockById
+
+## Health Metric
+###
+GET http://localhost:8080/api/v1/healthMetric/updateProductionHealth
+
+###
+GET http://localhost:8080/api/v1/healthMetric/getProductionHealth
+
+###
+GET http://localhost:8080/api/v1/healthMetric/getExceptionHealth
+
+## Node
+###
+GET http://localhost:8080/api/v1/node/getNodeStatus
+
+###
+GET http://localhost:8080/api/v1/node/getNodeTraffic
+
+
+## Node Manager
+###
+POST http://localhost:8080/api/v1/nodeManager/registerNode
+Content-Type: application/json
+
+{
+  "port": 9999,
+  "certificate": "secret-sauce"
+}
+
+###
+GET http://localhost:8080/api/v1/nodeManager/getNodeNetworkStatus
+
+###
+GET http://localhost:8080/api/v1/nodeManager/nodeNetworkRollCall
+
+###
+GET http://localhost:8080/api/v1/nodeManager/getNodeNetworkHealth
+
+## Transaction
+###
+POST http://localhost:8080/api/v1/transaction/submitTransaction
+Content-Type: application/json
+
+{
+  "id": 1006,
+  "timestamp": "today",
+  "source": "somewhere great",
+  "transactionStatus": "FULFILLED"
+}
+
+###
+GET http://localhost:8080/api/v1/transaction/getTransactionPool
