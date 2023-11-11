@@ -35,7 +35,6 @@ public class NodeManagerService {
             healthMetricService = new HealthMetricService();
             healthMetricService.createHealthMetricService();
         }
-        System.out.println("Initializing Node Manager Service");
     }
 
     /**
@@ -45,8 +44,9 @@ public class NodeManagerService {
      */
     public static NodeStatus registerNode(NodeRegistryRequest nodeRegistryRequest) {
         if (authenticateNodeRegistryCertificate(nodeRegistryRequest.getCertificate())) {
-            String nodeAddress = assembleNodeAddress(nodeRegistryRequest.getPort());
-            Node node = new Node(nodeNetwork.size() + 1, nodeAddress, NodeStatus.ACTIVE, 0);
+            String nodeAddressStatus = assembleNodeAddressStatus(nodeRegistryRequest.getPort());
+            String nodeAddressTraffic = assembleNodeAddressTraffic(nodeRegistryRequest.getPort());
+            Node node = new Node(nodeNetwork.size() + 1, nodeAddressStatus, nodeAddressTraffic, NodeStatus.ACTIVE, 0);
             nodeNetwork.add(node);
             return NodeStatus.ACTIVE;
         }
@@ -63,6 +63,7 @@ public class NodeManagerService {
         if (certificate.equals("secret-sauce")) {
             return Boolean.TRUE;
         }
+
         return Boolean.FALSE;
     }
 
@@ -71,8 +72,17 @@ public class NodeManagerService {
      * @param port is the port that the node is running on.
      * @return the node's address.
      */
-    private static String assembleNodeAddress(int port) {
+    private static String assembleNodeAddressStatus(int port) {
         return "http://localhost:" + port + "/api/v1/node/getNodeStatus";
+    }
+
+    /**
+     * assembleNodeAddress is responsible for assembling a node's address.
+     * @param port is the port that the node is running on.
+     * @return the node's address.
+     */
+    private static String assembleNodeAddressTraffic(int port) {
+        return "http://localhost:" + port + "/api/v1/node/getNodeTraffic";
     }
 
     /**
@@ -81,16 +91,20 @@ public class NodeManagerService {
      */
     public static Boolean getRollCall() {
         try {
-            System.out.println("getRollCall");
             Set<Node> nodeNetworkProxy = new HashSet<>();
+
             for (Node node : nodeNetwork) {
                 RestTemplate restTemplate = new RestTemplate();
-                NodeStatus nodeStatus = restTemplate.getForEntity("http://localhost:8080/api/v1/node/getNodeStatus", NodeStatus.class).getBody();
+                NodeStatus nodeStatus = restTemplate.getForEntity(node.getAddressGetStatus(), NodeStatus.class).getBody();
+                Integer traffic = restTemplate.getForEntity(node.getAddressGetTraffic(), Integer.class).getBody();
                 assert nodeStatus != null;
+                assert traffic != null;
                 node.setNodeStatus(nodeStatus);
+                node.setTraffic(traffic);
                 nodeNetworkProxy.add(node);
             }
             nodeNetwork = nodeNetworkProxy;
+
             return Boolean.TRUE;
         } catch (Exception exception) {
             healthMetricService.updateHealth(ContaminationLevel.INFO, exception);
@@ -106,6 +120,7 @@ public class NodeManagerService {
     public static NodeStatusResponse[] getNodeNetworkStatus() {
         NodeStatusResponse[] nodeStatusResponses = new NodeStatusResponse[nodeNetwork.size()];
         int i = 0;
+
         for (Node node : nodeNetwork) {
             NodeStatusResponse nodeStatusResponse = new NodeStatusResponse();
             nodeStatusResponse.setX(node.getId());
@@ -113,6 +128,7 @@ public class NodeManagerService {
             nodeStatusResponses[i] = nodeStatusResponse;
             i++;
         }
+
         return nodeStatusResponses;
     }
 }

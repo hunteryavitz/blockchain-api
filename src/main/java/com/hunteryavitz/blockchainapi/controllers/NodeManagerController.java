@@ -49,6 +49,7 @@ public class NodeManagerController {
         } catch (Exception exception) {
             healthMetricService.updateHealth(ContaminationLevel.WARNING, exception);
         }
+
         return ResponseEntity.ok(NodeStatus.FAILED_REGISTRATION);
     }
 

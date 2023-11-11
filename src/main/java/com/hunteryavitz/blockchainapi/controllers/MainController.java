@@ -100,7 +100,6 @@ public class MainController {
             if (test) {
                 throw new Exception("Test exception");
             }
-
             return ResponseEntity.ok(Utils.readFileToString(filePath).trim());
         } catch (Exception exception) {
             healthMetricService.updateHealth(ContaminationLevel.WARNING, exception);

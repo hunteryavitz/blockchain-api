@@ -23,10 +23,19 @@ public class TransactionService {
     private static BlockchainService blockchainService;
 
     /**
-     * The transactionCount is the number of transactions for the purposes of measuring production.
+     * The nodeService is an instance of the NodeService class.
+     */
+    private final NodeService nodeService;
+
+    /**
+     * The constructor for the TransactionService class.
+     * @param nodeService The node service.
      */
     @Autowired
-    HealthMetricService healthMetricService;
+    public TransactionService(NodeService nodeService) {
+        this.nodeService = nodeService;
+        System.out.println("creating transaction service");
+    }
 
     /**
      * The constructor for the TransactionService class.
@@ -43,12 +52,6 @@ public class TransactionService {
      * @param transaction The transaction to be submitted to the transaction pool.
      */
     public void submitTransaction(Transaction transaction) {
-
-        // NOTE: Here to pass the unit tests
-        if (healthMetricService == null) {
-            healthMetricService = new HealthMetricService();
-        }
-
         // NOTE: Here to pass the unit tests
         if (blockchainService == null) {
             blockchainService = new BlockchainService();
@@ -57,7 +60,8 @@ public class TransactionService {
         for (int i = 0; i < transactionPool.length; i++) {
             if (transactionPool[i] == null) {
                 transactionPool[i] = transaction;
-                healthMetricService.incrementTransactionCount();
+                nodeService.incrementTraffic();
+
                 if (i == (transactionPool.length - 1)) {
                     blockchainService.addBlockToBlockchain(transactionPool);
                     createInitialTransactionPool();
