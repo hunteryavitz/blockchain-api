@@ -5,8 +5,6 @@
 [![Github forks](https://img.shields.io/github/forks/hunteryavitz/blockchain-api.svg)](https://github.com/hunteryavitz/blockchain-api/network)
 [![Github stars](https://img.shields.io/github/stars/hunteryavitz/blockchain-api.svg)](https://github.com/hunteryavitz/blockchain-api/stargazers)
 
----
-
 **Last Updated:** 11/28/23
 
 This is the API and backend code for the [Blockchain Project](https://github.com/hunteryavitz/blockchain-main).
