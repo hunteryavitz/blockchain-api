@@ -1,8 +1,8 @@
 # Blockchain API
 
-[![Github stars](https://img.shields.io/github/forks/hunteryavitz/blockchain-api.svg)](https://github.com/hunteryavitz/blockchain-api/network)
+[![Github forks](https://img.shields.io/github/forks/hunteryavitz/blockchain-api.svg)](https://github.com/hunteryavitz/blockchain-api/network)
 [![Github stars](https://img.shields.io/github/stars/hunteryavitz/blockchain-api.svg)](https://github.com/hunteryavitz/blockchain-api/stargazers)
-[![Github workflow](https://github.com/hunteryavitz/blockchain-api/actions/workflows/ci-cd.yml/badge.svg)]()
+[![Github status](https://github.com/hunteryavitz/blockchain-api/actions/workflows/ci-cd.yml/badge.svg)]()
 
 ---
 
