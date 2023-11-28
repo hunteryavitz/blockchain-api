@@ -1,0 +1,8 @@
+com.hunteryavitz.blockchainapi
+com.hunteryavitz.blockchainapi.constants
+com.hunteryavitz.blockchainapi.controllers
+com.hunteryavitz.blockchainapi.entities
+com.hunteryavitz.blockchainapi.entities.healthmetric
+com.hunteryavitz.blockchainapi.services
+com.hunteryavitz.blockchainapi.utils
+com.hunteryavitz.blockchainapi.utils.structures
